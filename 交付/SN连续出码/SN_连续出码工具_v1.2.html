@@ -1,0 +1,1900 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>SN 连续出码 · Lite</title>
+<style>
+:root{color-scheme:light;--bg:#f4f6f8;--paper:#fff;--ink:#16232e;--muted:#516373;--line:#dbe2e8;--accent:#115e59;--soft:#e9f4f0;--warn:#805211;--warnbg:#fff8e8}
+*{box-sizing:border-box}body{margin:0;font:15px/1.6 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink)}button,input,select,textarea{font:inherit}button{cursor:pointer;border:1px solid var(--line);border-radius:9px;background:white;color:var(--ink);padding:10px 14px;line-height:1.4;font-weight:600}button:hover:not(:disabled){border-color:var(--accent);background:var(--soft)}button:disabled{opacity:.42;cursor:not-allowed}button.primary{background:var(--accent);border-color:var(--accent);color:white}button.primary:hover:not(:disabled){background:#0c4945}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #5a9d94;outline-offset:2px}input,select,textarea{border:1px solid #bfcbd5;border-radius:8px;background:white;color:var(--ink);padding:9px 10px;max-width:100%}input[type=number]{width:100%}textarea{width:100%;min-height:140px;resize:vertical;font:13px/1.7 ui-monospace,Consolas,monospace}label{display:block;font-size:13px;font-weight:600;margin:11px 0 5px}h1,h2,p{margin:0}h1{font-size:24px;line-height:1.25;letter-spacing:-.5px}h2{font-size:17px}.mono{font-family:ui-monospace,Consolas,"Courier New",monospace}.muted{color:var(--muted)}.small{font-size:12px;line-height:1.65}.top{max-width:1440px;margin:auto;padding:24px 28px 20px;display:flex;gap:16px;align-items:center;justify-content:space-between}.brand{display:flex;gap:12px;align-items:center}.brand-icon{display:grid;place-items:center;width:43px;height:43px;border-radius:12px;background:var(--ink);color:white;font-size:15px;font-weight:800}.eyebrow{font-size:10px;letter-spacing:2px;font-weight:700;color:var(--muted);margin-bottom:5px}.badge{border:1px solid #c4dfd5;color:var(--accent);background:var(--soft);padding:5px 11px;border-radius:50px;font-size:12px;font-weight:700;white-space:nowrap}.layout{max-width:1440px;margin:auto;padding:0 28px 28px;display:grid;grid-template-columns:330px minmax(0,1fr);gap:20px;align-items:start}.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;box-shadow:0 2px 6px #15263105}.sidebar{padding:22px}.section-title{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}.step{font-size:11px;color:var(--accent);font-weight:800;letter-spacing:1px}.filebox{border:1px dashed #a7bbb8;background:#f5faf8;border-radius:10px;padding:15px;text-align:center}.filebox button{width:100%}.filebox .small{margin-top:7px}#fileName{overflow-wrap:anywhere;margin-top:9px;font-size:12px;color:var(--muted)}.or{display:flex;align-items:center;gap:10px;font-size:11px;color:var(--muted);margin:15px 0}.or:before,.or:after{content:"";height:1px;background:var(--line);flex:1}.row{display:flex;gap:8px;align-items:center}.row>*{min-width:0}.row.spread{justify-content:space-between}.row.wrap{flex-wrap:wrap}.grow{flex:1}.divider{border:0;border-top:1px solid var(--line);margin:19px 0}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.full{width:100%}.hint{background:#f5f7fa;border:1px solid var(--line);border-radius:9px;padding:10px 12px;margin-top:11px;font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere}.hint.warn{background:var(--warnbg);border-color:#ebd79e;color:var(--warn)}.hint.error{background:#fff1f0;border-color:#ebc4bf;color:#99291e}.preview{margin-top:10px;max-height:120px;overflow:auto;border:1px solid var(--line);border-radius:8px}.preview div{display:flex;gap:12px;padding:5px 9px;border-bottom:1px solid #edf0f3;font-size:12px}.preview div:last-child{border-bottom:0}.preview span:first-child{min-width:28px;color:var(--muted)}.preview span:last-child{overflow-wrap:anywhere}.check{display:flex;gap:8px;align-items:flex-start;font-weight:400;line-height:1.55}.check input{margin:4px 0 0;flex:none}#mapping[hidden],*[hidden]{display:none!important}.stage{padding:25px 28px 22px;min-height:600px;display:flex;flex-direction:column}.stage-head{display:flex;align-items:center;justify-content:space-between;gap:16px}.counter{font-size:26px;font-weight:750;line-height:1.2}.counter small{font-size:16px;color:var(--muted);font-weight:500}.type-control{display:flex;gap:8px;align-items:center;font-size:13px}.type-control select{padding:8px;font-size:13px;max-width:165px}.progress{height:4px;background:#edf1f4;border-radius:4px;margin:18px 0 24px;overflow:hidden}.progress span{display:block;height:100%;background:var(--accent);transition:width .16s;width:0}.display{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:320px;text-align:center;border:1px solid #e6ecef;border-radius:12px;padding:25px 18px;background:white;overflow:hidden}.display:focus{outline:0}#empty{padding:38px 5px}#empty .empty-symbol{font:32px ui-monospace,Consolas,monospace;letter-spacing:8px;color:#95a8b5;margin-bottom:20px}#empty h2{font-size:23px;margin-bottom:8px}.image-wrap{width:100%;display:flex;justify-content:center;align-items:center;min-height:220px}canvas{max-width:100%;height:auto;display:block;image-rendering:pixelated}#canvas.qr{max-width:min(100%,380px)}#currentSN{font:600 clamp(17px,2.2vw,27px)/1.6 ui-monospace,Consolas,"Courier New",monospace;overflow-wrap:anywhere;white-space:pre-wrap;margin-top:16px;max-width:100%;user-select:all}#sourceLine{margin-top:7px;font-size:12px;color:var(--muted)}#currentWarning{font-size:12px;color:var(--warn);margin-top:8px}#renderError{max-width:100%;margin:10px auto;text-align:left}.navigation{display:grid;grid-template-columns:1fr 1.7fr;gap:12px;margin-top:21px}.navigation button{padding:16px;font-size:17px}.key{font-size:11px;font-weight:500;opacity:.78;margin-left:8px}.actions{margin-top:13px;display:flex;gap:8px;flex-wrap:wrap}.actions button{font-size:13px;padding:9px 12px}.jump{display:flex;align-items:center;gap:7px;margin-left:auto;font-size:12px}.jump input{width:66px;padding:6px}.jump button{padding:7px 9px}.footer{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);display:flex;gap:15px;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted)}#status{min-height:21px;white-space:pre-wrap;overflow-wrap:anywhere}details{font-size:12px;color:var(--muted)}summary{cursor:pointer;font-weight:600}details p{margin:8px 0;line-height:1.7}.focus .sidebar{display:none}.focus .layout{grid-template-columns:1fr;max-width:1300px}.focus .stage{min-height:calc(100vh - 130px)}.focus .display{min-height:390px}.focus .image-wrap{min-height:270px}.focus #canvas.qr{max-width:420px}@media(max-width:960px){.layout{grid-template-columns:290px minmax(0,1fr);gap:14px;padding:0 18px 24px}.sidebar{padding:17px}.stage{padding:21px 18px}.stage-head{align-items:flex-start;flex-direction:column;gap:14px}.jump{margin-left:0}.top{padding:22px 18px}}@media(max-width:720px){.layout{display:flex;flex-direction:column;padding:0 12px 20px}.sidebar,.stage{width:100%}.top{padding:18px 14px}.top .badge{font-size:10px;padding:4px 8px}h1{font-size:20px}.sidebar{padding:18px}.stage{min-height:530px}.stage-head{flex-direction:row;align-items:center}.counter{font-size:23px}.display{min-height:260px;padding:16px 10px}.image-wrap{min-height:180px}.key{display:none}.footer{align-items:flex-start}.focus .layout{display:block}.focus .stage{min-height:calc(100vh - 112px)}#canvas.qr{max-width:280px}.focus #canvas.qr{max-width:330px}}@media print{body{background:white}.top,.sidebar,.stage-head,.progress,.navigation,.actions,.footer{display:none!important}.layout{display:block;padding:0}.stage,.display{border:0;box-shadow:none;padding:0;min-height:0}#currentSN,#sourceLine{display:none}.image-wrap{min-height:0}}
+
+/* v1.1: explicit column mapping and row-bound context */
+.version-pill{font-size:11px;border:1px solid #c4dfd5;color:var(--accent);border-radius:5px;padding:2px 5px;vertical-align:middle;letter-spacing:0}.layout{max-width:1600px;grid-template-columns:370px minmax(0,1fr)}.top{max-width:1600px}.mapping-cols{display:grid;grid-template-columns:minmax(0,1fr) 82px;gap:10px}.detect-button{color:var(--accent);border-color:#a7c8bb;background:#f0f8f4}.detection-choices{display:flex;flex-direction:column;gap:6px;margin-top:8px;max-height:210px;overflow:auto}.detection-choices button{text-align:left;font-size:12px;font-weight:500;padding:8px 10px;overflow-wrap:anywhere}.preview{max-height:250px;overflow:auto}.preview table{border-collapse:collapse;width:100%;table-layout:fixed;font-size:11px}.preview th{background:#f4f6f8;text-align:left;padding:7px 5px;font-weight:600;position:sticky;top:0}.preview th:first-child{width:32px}.preview td{vertical-align:top;padding:7px 5px;border-top:1px solid var(--line);overflow-wrap:anywhere}.preview td div{display:block;border:0;padding:0;margin:0;line-height:1.6;font-size:11px}.preview td .preview-label{color:var(--muted);font-size:10px;margin-bottom:3px}.preview .preview-value{white-space:pre-wrap;max-height:78px;overflow:auto}.selected-col{background:#ecf6f1}.row-context{width:100%;margin-top:22px;text-align:left}.context-top{display:flex;justify-content:space-between;gap:8px;font-size:11px;color:var(--muted);margin-bottom:8px}.context-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr) minmax(0,1fr);gap:10px}.context-cell{border:1px solid var(--line);border-radius:11px;background:#f8fafb;padding:13px 14px;min-width:0}.context-cell h3{margin:0 0 9px;font-size:11px;color:var(--muted);font-weight:600;line-height:1.6}.context-cell.sn-cell{background:#f0f8f4;border-color:#9fc6b7}.context-cell.sn-cell h3{color:var(--accent)}.field-header{font-size:12px;font-weight:600;overflow-wrap:anywhere;margin-bottom:4px;line-height:1.6}.field-value{font-size:17px;line-height:1.65;font-weight:600;white-space:pre-wrap;overflow-wrap:anywhere;max-height:200px;overflow:auto;user-select:text}.empty-value{font-weight:400;font-size:13px;color:var(--muted)}#currentSN{font-size:clamp(16px,1.7vw,23px);line-height:1.65;margin-top:4px;word-break:break-all;text-align:left}.cell-note{font-size:11px;font-weight:400;color:var(--warn);margin-top:5px;line-height:1.6}.all-row{width:100%;text-align:left;margin-top:15px;border-top:1px solid var(--line);padding-top:12px}.all-row summary{font-size:12px;color:var(--muted)}.all-row-scroll{max-height:340px;overflow:auto;margin-top:10px;border:1px solid var(--line);border-radius:8px}.all-row table{width:100%;border-collapse:collapse;table-layout:fixed;color:var(--ink);font-size:12px}.all-row th{text-align:left;padding:8px 10px;background:#f4f6f8;position:sticky;top:0}.all-row th:nth-child(1){width:76px}.all-row th:nth-child(2){width:29%}.all-row td{padding:8px 10px;border-top:1px solid var(--line);vertical-align:top;white-space:pre-wrap;overflow-wrap:anywhere}.all-row p{font-size:11px}.stage{min-height:710px}.display{padding:22px 18px}.image-wrap{min-height:200px}.progress{margin-bottom:20px}@media(max-width:1150px){.layout{grid-template-columns:340px minmax(0,1fr)}.context-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.sn-cell{grid-column:1 / -1;grid-row:1}.context-cell{padding:11px 12px}.context-cell.sn-cell #currentSN{font-size:22px}.context-cell.sn-cell{min-height:0}}@media(max-width:960px){.layout{grid-template-columns:320px minmax(0,1fr)}}@media(max-width:720px){.layout{display:flex}.stage{min-height:660px}.context-top{flex-wrap:wrap}.display{padding:16px 10px}.context-grid{gap:8px}.field-value{font-size:16px}.all-row th:nth-child(1){width:62px}.all-row th,.all-row td{padding:7px 6px}.all-row th:nth-child(2){width:28%}.top .badge{font-size:9px}.brand{gap:8px}.brand-icon{width:35px;height:35px}.eyebrow{font-size:9px;letter-spacing:1px}.stage-head{flex-wrap:wrap}}.focus .context-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.35fr) minmax(0,1fr)}.focus .sn-cell{grid-column:auto;grid-row:auto}.focus #currentSN{font-size:26px}@media(max-width:720px){.focus .context-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.focus .sn-cell{grid-column:1 / -1;grid-row:1}.focus #currentSN{font-size:22px}}@media print{#rowContext,#allRowDetails,#currentWarning{display:none!important}}
+
+/* Excel-Lite palette and controls; barcode canvas always remains white. */
+.mapping-heading{align-items:center;gap:12px}.mapping-heading #apply{min-width:100px;flex:none;padding:11px 16px}
+:root{color-scheme:light dark;--bg:#f4f5f7;--paper:#fff;--ink:#172337;--muted:#647086;--line:#dce1e8;--accent:#2757ba;--soft:#f1f4f9}
+body{font:15px/1.55 "Segoe UI Variable","Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;padding:16px 0}
+.top{max-width:1260px;padding:18px 24px 24px}.layout{max-width:1260px;grid-template-columns:340px minmax(0,1fr);gap:20px;padding:0 24px 24px}
+.brand-icon{background:#147d70;border-radius:11px;width:40px;height:40px}.eyebrow{letter-spacing:.08em;font-size:11px}.top h1{font-size:25px;letter-spacing:.02em}.version-pill{border:0;background:var(--soft);color:var(--muted);padding:4px 7px}
+.card{border-radius:20px;box-shadow:0 12px 40px #17233708}.sidebar{padding:26px}.stage{padding:28px;min-height:640px}.section-title h2{font-size:17px}.step{color:var(--muted)}
+button,input,select,textarea{border-color:var(--line);border-radius:9px;background:var(--paper);color:var(--ink);min-height:44px}button{display:inline-flex;align-items:center;justify-content:center;gap:8px}button.primary:hover:not(:disabled){background:var(--accent);filter:brightness(.93)}button:hover:not(:disabled){background:var(--soft)}button.primary{background:var(--accent);color:white}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #8caaf0;outline-offset:3px}
+.icon{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}.top-actions{display:flex;gap:8px}.top-actions button{width:44px;padding:10px}.filebox{background:var(--soft);border:1px dashed var(--line);padding:14px}.filebox .small{display:none}.filebox button{background:var(--paper)}#fileName{font-size:11px;margin:10px 0 16px}.detect-button,.selected-col{background:var(--soft)}.detect-button{border-color:var(--line)}
+#pastePanel{border-top:1px solid var(--line);padding-top:14px}#pastePanel textarea{margin-top:12px;min-height:105px}summary{padding:7px 0;min-height:32px}#helpDetails{display:none}#helpDetails[open]{display:block}#emptyImport{margin-top:24px;min-width:150px}#empty h2{font-size:23px}.display{background:var(--paper);border:0;padding:12px 0;overflow:visible;min-height:340px}.image-wrap{background:#fff;border:1px solid #e6ecef;border-radius:12px;padding:24px;min-height:240px}.progress{margin:18px 0;background:var(--soft)}
+.context-grid,.focus .context-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) minmax(0,1fr)}.sn-cell{grid-column:auto;grid-row:auto}.context-cell{background:var(--soft);padding:12px;min-height:105px}.context-cell.sn-cell{background:var(--paper);border-color:var(--accent)}.field-value{font-size:16px}#currentSN{font-size:19px}.context-top{margin-bottom:7px}.context-cell h3{margin-bottom:5px}.all-row th,.preview th{background:var(--soft)}
+.navigation{display:flex;gap:10px;margin-top:20px}.navigation button{min-height:56px}.navigation #prev{width:72px}.navigation #next{flex:1}.navigation .icon{width:24px;height:24px}.actions{gap:9px;align-items:center}.actions>button{width:44px;padding:10px}.jump{gap:7px}.jump input{min-height:44px}.jump button{width:44px}.footer{font-size:11px;gap:8px}.footer .small{font-size:11px}.hint{background:var(--soft)}.type-control label{display:none}.type-control select{max-width:135px}.key{display:none}
+.viewing .sidebar{display:none}.viewing .layout{grid-template-columns:minmax(0,1fr);max-width:1060px}.viewing .stage{min-height:calc(100vh - 155px)}.focus .layout{max-width:1360px}.focus .stage{min-height:calc(100vh - 155px)}
+@media(prefers-color-scheme:dark){:root{--bg:#17191d;--paper:#22252b;--ink:#eef1f6;--muted:#a3adbd;--line:#3c424d;--accent:#8badfa;--soft:#2e3543;--warn:#f4c77a;--warnbg:#382f20}button.primary{color:#14203a}.hint.warn{border-color:#665637}.hint.error{background:#3d2528;color:#ffb7ae;border-color:#76434a}.preview td{border-color:var(--line)}}
+@media(max-width:900px){.layout{grid-template-columns:300px minmax(0,1fr);gap:14px}.sidebar,.stage{padding:20px}.context-grid,.focus .context-grid{grid-template-columns:1fr 1fr}.sn-cell,.focus .sn-cell{grid-column:1/-1;grid-row:1}.stage-head{flex-direction:row;align-items:center}.image-wrap{padding:16px}.top h1{font-size:22px}}
+@media(max-width:720px){body{padding:0}.top{padding:20px 16px}.layout{display:flex;padding:0 12px 16px}.card{border-radius:14px}.sidebar,.stage{padding:20px;width:100%}.top h1{font-size:20px}.brand-icon{width:35px;height:35px}.version-pill{font-size:10px}.stage{min-height:560px}.viewing .layout{display:block}.image-wrap{min-height:200px;padding:12px}.context-cell{min-height:90px}.footer{flex-wrap:wrap}.actions{gap:6px}.jump{margin-left:auto}.jump span{display:none}.jump input{width:56px}.viewing .stage{min-height:calc(100dvh - 108px)}.all-row th:nth-child(2){width:28%}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+@media print{.top-actions,#emptyImport{display:none!important}.image-wrap{border:0}}
+
+.neighbor-toggle{display:inline-flex;align-items:center;gap:7px;margin:0;font-size:12px;cursor:pointer;color:var(--muted)}
+.neighbor-toggle input{width:16px;height:16px;margin:0;accent-color:var(--accent)}
+.neighbor-barcode{margin-top:12px;background:#fff;border-radius:8px;overflow-x:auto;padding:8px}
+.neighbor-barcode canvas{display:block;width:100%;min-width:260px;height:auto;max-width:none}
+.neighbor-barcode[hidden]{display:none}
+
+.context-top{align-items:center;justify-content:flex-start}.context-top>span:first-child{margin-right:auto}
+.neighbor-lock{padding:4px;width:28px;height:28px;min-height:0;border:0;background:transparent;color:var(--muted)}
+.neighbor-lock svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.neighbor-lock[aria-pressed="true"]{color:var(--accent);background:var(--surface)}
+
+.context-controls{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr) minmax(0,1fr);gap:10px;align-items:center;width:100%;margin-top:7px}
+.context-controls[hidden]{display:none}.neighbor-control{display:flex;justify-content:center;align-items:center;gap:6px;min-width:0}
+.context-controls #sourceLine{margin:0;text-align:center}.context-controls .neighbor-toggle{font-weight:400}
+@media(max-width:1150px){.context-controls{grid-template-columns:1fr 1fr}.context-controls #sourceLine{grid-column:1/-1;grid-row:1}.right-control{grid-column:2}}
+@media(min-width:721px){.focus .context-controls{grid-template-columns:minmax(0,1fr) minmax(0,1.35fr) minmax(0,1fr)}.focus .context-controls #sourceLine{grid-column:auto;grid-row:auto}.focus .right-control{grid-column:auto}}
+
+.neighbor-control{flex-wrap:wrap;row-gap:5px}.notify-toggle{flex-basis:100%;justify-content:center;text-align:center}
+.neighbor-alert{width:100%;padding:14px 18px;margin-bottom:12px;border:2px solid #e7a53b;border-radius:10px;background:#fff2ce;color:#713e00;font-size:clamp(16px,1.6vw,22px);font-weight:700;white-space:pre-wrap;overflow-wrap:anywhere;text-align:center}
+.neighbor-alert[hidden]{display:none}
+
+.context-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:5px;margin-bottom:9px}.context-heading h3{margin:0}
+.column-arrows{display:flex;gap:2px;flex-shrink:0}.column-arrow{display:grid;place-items:center;width:24px;height:24px;min-height:0;padding:4px;border:0;background:transparent;color:var(--muted);border-radius:5px}
+.column-arrow svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.column-arrow:disabled{opacity:.25}
+
+.context-heading{flex-wrap:wrap}.column-arrows{margin-left:auto;align-items:center;min-width:0;max-width:100%}
+.column-select{width:112px;max-width:calc(100% - 52px);min-width:0;height:26px;padding:2px 5px;font-size:11px;border-radius:5px;text-overflow:ellipsis}
+
+</style>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNTYiIGhlaWdodD0iMjU2IiB2aWV3Qm94PSIwIDAgNjQgNjQiIGZpbGw9Im5vbmUiPgogIDxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgcng9IjE2IiBmaWxsPSIjMTQ3RDcwIi8+CiAgPHJlY3QgeD0iMTAiIHk9IjEyIiB3aWR0aD0iNDQiIGhlaWdodD0iNDAiIHJ4PSI3IiBmaWxsPSIjRjNGQUY1Ii8+CiAgPHBhdGggZD0iTTE4IDIxdjIybTYtMjJ2MjJtOC0yMnYyMm02LTIydjEybTgtMTJ2MTAiIHN0cm9rZT0iIzE0N0Q3MCIgc3Ryb2tlLXdpZHRoPSI0Ii8+CiAgPHJlY3QgeD0iMzAiIHk9IjMyIiB3aWR0aD0iMjkiIGhlaWdodD0iMjUiIHJ4PSI5IiBmaWxsPSIjMjc1N0JBIi8+CiAgPHBhdGggZD0iTTM3IDQ0LjVoMTRtLTYtNiA2IDYtNiA2IiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjMuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPgo="></head>
+<body>
+<header class="top"><div class="brand"><img class="brand-icon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNTYiIGhlaWdodD0iMjU2IiB2aWV3Qm94PSIwIDAgNjQgNjQiIGZpbGw9Im5vbmUiPgogIDxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgcng9IjE2IiBmaWxsPSIjMTQ3RDcwIi8+CiAgPHJlY3QgeD0iMTAiIHk9IjEyIiB3aWR0aD0iNDQiIGhlaWdodD0iNDAiIHJ4PSI3IiBmaWxsPSIjRjNGQUY1Ii8+CiAgPHBhdGggZD0iTTE4IDIxdjIybTYtMjJ2MjJtOC0yMnYyMm02LTIydjEybTgtMTJ2MTAiIHN0cm9rZT0iIzE0N0Q3MCIgc3Ryb2tlLXdpZHRoPSI0Ii8+CiAgPHJlY3QgeD0iMzAiIHk9IjMyIiB3aWR0aD0iMjkiIGhlaWdodD0iMjUiIHJ4PSI5IiBmaWxsPSIjMjc1N0JBIi8+CiAgPHBhdGggZD0iTTM3IDQ0LjVoMTRtLTYtNiA2IDYtNiA2IiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjMuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPgo=" width="40" height="40" alt="" aria-hidden="true"><div><div class="eyebrow">离线工具</div><h1>SN 连续出码 <span class="version-pill">Lite</span></h1></div></div><div class="top-actions"><button id="settings" title="导入与设置" aria-label="导入与设置" aria-expanded="true"></button><button id="help" title="使用说明" aria-label="使用说明"></button></div></header>
+<main class="layout">
+<aside class="card sidebar" id="sidebar">
+<div class="section-title"><h2>导入</h2><span class="step">01</span></div>
+<div class="filebox"><input id="file" type="file" accept=".xlsx,.csv,.txt,.tsv" hidden><button id="pickFile">选择文件</button><div class="small muted">.xlsx / UTF-8 CSV / TXT / TSV<br>不改写原文件 · 不运行宏或公式</div></div>
+<div id="fileName">Excel / CSV / TXT / TSV</div>
+<details id="pastePanel"><summary>粘贴表格</summary>
+<textarea id="paste" aria-label="粘贴包含 SN 与左右字段的 Excel 表格" placeholder="可直接粘贴 Excel 连续多列，保留表头。&#10;产品名称&#9;SN&#9;核对状态&#10;演示产品 A&#9;DEMO000001&#9;待核对" spellcheck="false"></textarea>
+<div class="row" style="margin-top:8px"><button id="loadPaste" class="grow">读取</button><button id="demo">示例</button></div>
+</details><div id="importMessage" class="hint" hidden role="status"></div>
+<section id="mapping" hidden>
+<hr class="divider"><div class="section-title mapping-heading"><h2>确认 SN 列</h2><button id="apply" class="primary">开始</button></div>
+<label for="sheet">工作表</label><select id="sheet" class="full"></select>
+<button id="autoDetect" class="full detect-button" style="margin-top:12px">自动识别 SN 位置</button>
+<div id="detectionMessage" class="hint" hidden role="status"></div>
+<div id="detectionChoices" class="detection-choices" hidden></div>
+<div class="mapping-cols"><div><label for="column">SN 列</label><select id="column" class="full"></select></div><div><label for="columnNumber">列序号</label><input id="columnNumber" type="number" min="1" max="512" aria-label="SN 列序号，A 列为 1" placeholder="A = 1"></div></div>
+<div class="grid2"><div><label for="headerRow">表头行（0 = 无）</label><input id="headerRow" type="number" min="0" max="19999" value="0"></div><div><label for="startRow">数据起始行</label><input id="startRow" type="number" min="1" max="20000" value="2"></div></div>
+<div class="small muted" style="margin-top:12px">预览</div>
+<div class="preview" id="preview"></div>
+<div id="mappingStats" class="small muted" style="margin-top:8px"></div>
+<div id="mappingWarning" class="hint warn" hidden></div>
+<label id="ackWrap" class="check small" hidden><input id="ackNumeric" type="checkbox"><span>已按原始记录核对非文本单元格及其前导零，确认可以使用。</span></label>
+
+</section>
+<hr class="divider">
+<details id="helpDetails"><summary>使用说明</summary>
+<p>整张 .xlsx 或连续多列一起导入，才能显示 SN 左右字段。只粘贴 SN 一列时，左右列不可恢复。粘贴后的行列号按粘贴区域重新计数；要保留 Excel 原坐标请导入 .xlsx。</p>
+<p>自动识别只处理当前工作表：优先查找前 50 个非空行中的 SN、S/N、序列号等表头，没有表头时才参考内容特征。多个候选必须手动选择。识别结果不是厂商 SN 有效性校验，也不限定 14 位。</p>
+<p>左右卡片始终取同一行的紧邻列，不跨过空白列找其他值。展开「同一行全部列」可看更远处的字段。缺失值和边界列明确标注，不自动填充合并单元格。</p>
+<p>SN 列请先设为「文本」，再填写或粘贴。已损失的前导零或长数字末位无法恢复。SN 公式需要先粘贴为值；其他列只显示原始值或已有公式缓存值，不重新计算，也不复现日期、金额等自定义格式。</p>
+<p>保留顺序、重复值、大小写和首尾空格；只跳过 SN 为空的行。隐藏或被筛选掉的行仍会读取，需仅处理部分行时请复制所需的连续列和指定行。</p>
+<p>文件不超过 10 MB；最多 20,000 个源行、512 列、10,000 条 SN。支持普通未加密 .xlsx、UTF-8 CSV / TXT / TSV，不支持 .xls、密码文件或宏工作簿。</p>
+<p>Code 128 B 支持 1–80 个可打印 ASCII 字符；二维码 / 纯文字支持最长 512 个字符。条码、二维码和默认 PNG 都只含 SN 原文，不加入左右字段，也不自动添加或删除 S/N: 前缀。</p>
+<p>更改工作表、SN 列、表头行或起始行会停止旧清单，需重新点击「开始显示」，避免用新列设置核对旧码。刷新或关闭会清空数据与进度；不回写 Excel。</p>
+<p>切换不等于扫码成功。本工具不接收业务系统回执，正式使用前请用少量已知 SN 测试扫码结果。</p>
+</details>
+</aside>
+<section class="card stage" id="stage">
+<div class="stage-head"><div><div class="eyebrow">当前 / 总数</div><div class="counter"><span id="currentNo">—</span><small> / <span id="totalNo">0</span></small></div></div><div class="type-control"><label for="format" style="margin:0">图片格式</label><select id="format"><option value="code128">条形码</option><option value="qr">二维码</option><option value="text">纯文字图片</option></select></div></div>
+<div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+<div class="display" id="display" tabindex="-1">
+<div id="empty"><div class="empty-symbol" aria-hidden="true">┃│┃┃│</div><h2>导入，开始出码</h2><p class="muted">选择文件 → 确认 SN 列 → 连续切换</p><button id="emptyImport" class="primary">选择文件</button></div>
+<div id="neighborAlert" class="neighbor-alert" role="status" aria-live="polite" hidden></div><div class="image-wrap" id="imageWrap" hidden><canvas id="canvas" aria-label="当前 SN 图片"></canvas></div>
+<div id="renderError" class="hint error" hidden role="alert"></div>
+<section id="rowContext" class="row-context" aria-label="当前 SN 及同一行左右字段" hidden>
+<div class="context-top"><span>同行字段</span></div>
+<div class="context-grid">
+<article class="context-cell"><div class="context-heading"><h3 id="leftPosition">左侧列</h3><div class="column-arrows"><select id="leftColumnSelect" class="column-select" aria-label="左侧字段：选择表头" title="选择表头定位列"></select><button id="leftPrevColumn" class="column-arrow" title="左侧字段：前一列" aria-label="左侧字段：前一列"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button><button id="leftNextColumn" class="column-arrow" title="左侧字段：后一列" aria-label="左侧字段：后一列"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button></div></div><div id="leftHeader" class="field-header"></div><div id="leftValue" class="field-value"></div><div id="leftNote" class="cell-note" hidden></div><div id="leftBarcodeWrap" class="neighbor-barcode" hidden><canvas id="leftBarcode" role="img"></canvas></div><div id="leftBarcodeHint" class="cell-note" hidden></div></article>
+<article class="context-cell sn-cell"><h3 id="snPosition">当前 SN</h3><div id="snHeader" class="field-header"></div><div id="currentSN" hidden></div></article>
+<article class="context-cell"><div class="context-heading"><h3 id="rightPosition">右侧列</h3><div class="column-arrows"><select id="rightColumnSelect" class="column-select" aria-label="右侧字段：选择表头" title="选择表头定位列"></select><button id="rightPrevColumn" class="column-arrow" title="右侧字段：前一列" aria-label="右侧字段：前一列"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button><button id="rightNextColumn" class="column-arrow" title="右侧字段：后一列" aria-label="右侧字段：后一列"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button></div></div><div id="rightHeader" class="field-header"></div><div id="rightValue" class="field-value"></div><div id="rightNote" class="cell-note" hidden></div><div id="rightBarcodeWrap" class="neighbor-barcode" hidden><canvas id="rightBarcode" role="img"></canvas></div><div id="rightBarcodeHint" class="cell-note" hidden></div></article>
+</div></section>
+<div id="contextControls" class="context-controls" hidden><div class="neighbor-control left-control"><label class="neighbor-toggle"><input id="leftCodes" type="checkbox" aria-label="左侧列条形码">条形码</label><button id="leftLock" class="neighbor-lock" aria-label="锁定左侧列条形码" title="锁定：切换行时保留" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 10V7a4 4 0 0 1 8 0M6 10h12v11H6z"/></svg></button><label class="neighbor-toggle notify-toggle" title="选择保留到刷新"><input id="leftNotify" type="checkbox"><span id="leftNotifyLabel">改变时通知我</span></label></div><div id="sourceLine" hidden></div><div class="neighbor-control right-control"><label class="neighbor-toggle"><input id="rightCodes" type="checkbox" aria-label="右侧列条形码">条形码</label><button id="rightLock" class="neighbor-lock" aria-label="锁定右侧列条形码" title="锁定：切换行时保留" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 10V7a4 4 0 0 1 8 0M6 10h12v11H6z"/></svg></button><label class="neighbor-toggle notify-toggle" title="选择保留到刷新"><input id="rightNotify" type="checkbox"><span id="rightNotifyLabel">改变时通知我</span></label></div></div><div id="currentWarning" hidden></div>
+<details id="allRowDetails" class="all-row" hidden><summary id="allRowSummary">查看同一行全部字段</summary><div class="all-row-scroll"><table><thead><tr><th>单元格</th><th>列名 / 表头</th><th>当前行内容</th></tr></thead><tbody id="allRowBody"></tbody></table></div><p>数值按源值显示；公式仅显示已有缓存值，未重新计算。空白和合并单元格不自动补值。</p></details>
+</div>
+<div class="navigation"><button id="prev" disabled>← 上一张<span class="key">左方向键</span></button><button id="next" class="primary" disabled>下一张 →<span class="key">空格 / 右方向键</span></button></div>
+<div class="actions"><button id="save" disabled>保存当前 PNG</button><button id="saveNext" disabled>保存并下一张</button><button id="focus">大屏模式</button><div class="jump"><span>跳到</span><input id="jumpNo" type="number" min="1" value="1" aria-label="跳转到第几条"><button id="jump" disabled>前往</button></div></div>
+<div class="footer"><div><div id="status" role="status" aria-live="polite">等待导入</div><div class="small">切换前，请确认扫码完成。</div></div><span class="small" style="white-space:nowrap">本地处理</span></div>
+</section>
+</main>
+<script>
+/* QR engine: QRCode for JavaScript, Copyright (c) 2009 Kazuhiko Arase.
+   MIT license. Adapted from the vendored QRCode in qrcode-terminal.
+   Local modification: encode string input as UTF-8 using TextEncoder. */
+(function(){ const modules=Object.create(null), cache=Object.create(null);
+modules["QR8bitByte"]=function(module,exports,require){
+var QRMode = require('./QRMode');
+
+function QR8bitByte(data) {
+	this.mode = QRMode.MODE_8BIT_BYTE;
+	this.data = Array.from(new TextEncoder().encode(data));
+}
+
+QR8bitByte.prototype = {
+
+	getLength : function() {
+		return this.data.length;
+	},
+	
+	write : function(buffer) {
+		for (var i = 0; i < this.data.length; i++) {
+			// not JIS ...
+			buffer.put(this.data[i], 8);
+		}
+	}
+};
+
+module.exports = QR8bitByte;
+
+};
+modules["QRBitBuffer"]=function(module,exports,require){
+function QRBitBuffer() {
+	this.buffer = [];
+	this.length = 0;
+}
+
+QRBitBuffer.prototype = {
+
+	get : function(index) {
+		var bufIndex = Math.floor(index / 8);
+		return ( (this.buffer[bufIndex] >>> (7 - index % 8) ) & 1) == 1;
+	},
+	
+	put : function(num, length) {
+		for (var i = 0; i < length; i++) {
+			this.putBit( ( (num >>> (length - i - 1) ) & 1) == 1);
+		}
+	},
+	
+	getLengthInBits : function() {
+		return this.length;
+	},
+	
+	putBit : function(bit) {
+	
+		var bufIndex = Math.floor(this.length / 8);
+		if (this.buffer.length <= bufIndex) {
+			this.buffer.push(0);
+		}
+	
+		if (bit) {
+			this.buffer[bufIndex] |= (0x80 >>> (this.length % 8) );
+		}
+	
+		this.length++;
+	}
+};
+
+module.exports = QRBitBuffer;
+
+};
+modules["QRErrorCorrectLevel"]=function(module,exports,require){
+module.exports = {
+	L : 1,
+	M : 0,
+	Q : 3,
+	H : 2
+};
+
+
+};
+modules["QRMaskPattern"]=function(module,exports,require){
+module.exports = {
+	PATTERN000 : 0,
+	PATTERN001 : 1,
+	PATTERN010 : 2,
+	PATTERN011 : 3,
+	PATTERN100 : 4,
+	PATTERN101 : 5,
+	PATTERN110 : 6,
+	PATTERN111 : 7
+};
+
+};
+modules["QRMath"]=function(module,exports,require){
+var QRMath = {
+
+	glog : function(n) {
+	
+		if (n < 1) {
+			throw new Error("glog(" + n + ")");
+		}
+		
+		return QRMath.LOG_TABLE[n];
+	},
+	
+	gexp : function(n) {
+	
+		while (n < 0) {
+			n += 255;
+		}
+	
+		while (n >= 256) {
+			n -= 255;
+		}
+	
+		return QRMath.EXP_TABLE[n];
+	},
+	
+	EXP_TABLE : new Array(256),
+	
+	LOG_TABLE : new Array(256)
+
+};
+	
+for (var i = 0; i < 8; i++) {
+	QRMath.EXP_TABLE[i] = 1 << i;
+}
+for (var i = 8; i < 256; i++) {
+	QRMath.EXP_TABLE[i] = QRMath.EXP_TABLE[i - 4]
+		^ QRMath.EXP_TABLE[i - 5]
+		^ QRMath.EXP_TABLE[i - 6]
+		^ QRMath.EXP_TABLE[i - 8];
+}
+for (var i = 0; i < 255; i++) {
+	QRMath.LOG_TABLE[QRMath.EXP_TABLE[i] ] = i;
+}
+
+module.exports = QRMath;
+
+};
+modules["QRMode"]=function(module,exports,require){
+module.exports = {
+    MODE_NUMBER :       1 << 0,
+    MODE_ALPHA_NUM :    1 << 1,
+    MODE_8BIT_BYTE :    1 << 2,
+    MODE_KANJI :        1 << 3
+};
+
+};
+modules["QRPolynomial"]=function(module,exports,require){
+var QRMath = require('./QRMath');
+
+function QRPolynomial(num, shift) {
+	if (num.length === undefined) {
+		throw new Error(num.length + "/" + shift);
+	}
+
+	var offset = 0;
+
+	while (offset < num.length && num[offset] === 0) {
+		offset++;
+	}
+
+	this.num = new Array(num.length - offset + shift);
+	for (var i = 0; i < num.length - offset; i++) {
+		this.num[i] = num[i + offset];
+	}
+}
+
+QRPolynomial.prototype = {
+
+	get : function(index) {
+		return this.num[index];
+	},
+	
+	getLength : function() {
+		return this.num.length;
+	},
+	
+	multiply : function(e) {
+	
+		var num = new Array(this.getLength() + e.getLength() - 1);
+	
+		for (var i = 0; i < this.getLength(); i++) {
+			for (var j = 0; j < e.getLength(); j++) {
+				num[i + j] ^= QRMath.gexp(QRMath.glog(this.get(i) ) + QRMath.glog(e.get(j) ) );
+			}
+		}
+	
+		return new QRPolynomial(num, 0);
+	},
+	
+	mod : function(e) {
+	
+		if (this.getLength() - e.getLength() < 0) {
+			return this;
+		}
+	
+		var ratio = QRMath.glog(this.get(0) ) - QRMath.glog(e.get(0) );
+	
+		var num = new Array(this.getLength() );
+		
+		for (var i = 0; i < this.getLength(); i++) {
+			num[i] = this.get(i);
+		}
+		
+		for (var x = 0; x < e.getLength(); x++) {
+			num[x] ^= QRMath.gexp(QRMath.glog(e.get(x) ) + ratio);
+		}
+	
+		// recursive call
+		return new QRPolynomial(num, 0).mod(e);
+	}
+};
+
+module.exports = QRPolynomial;
+
+};
+modules["QRRSBlock"]=function(module,exports,require){
+var QRErrorCorrectLevel = require('./QRErrorCorrectLevel');
+
+function QRRSBlock(totalCount, dataCount) {
+	this.totalCount = totalCount;
+	this.dataCount  = dataCount;
+}
+
+QRRSBlock.RS_BLOCK_TABLE = [
+
+	// L
+	// M
+	// Q
+	// H
+
+	// 1
+	[1, 26, 19],
+	[1, 26, 16],
+	[1, 26, 13],
+	[1, 26, 9],
+	
+	// 2
+	[1, 44, 34],
+	[1, 44, 28],
+	[1, 44, 22],
+	[1, 44, 16],
+
+	// 3
+	[1, 70, 55],
+	[1, 70, 44],
+	[2, 35, 17],
+	[2, 35, 13],
+
+	// 4		
+	[1, 100, 80],
+	[2, 50, 32],
+	[2, 50, 24],
+	[4, 25, 9],
+	
+	// 5
+	[1, 134, 108],
+	[2, 67, 43],
+	[2, 33, 15, 2, 34, 16],
+	[2, 33, 11, 2, 34, 12],
+	
+	// 6
+	[2, 86, 68],
+	[4, 43, 27],
+	[4, 43, 19],
+	[4, 43, 15],
+	
+	// 7		
+	[2, 98, 78],
+	[4, 49, 31],
+	[2, 32, 14, 4, 33, 15],
+	[4, 39, 13, 1, 40, 14],
+	
+	// 8
+	[2, 121, 97],
+	[2, 60, 38, 2, 61, 39],
+	[4, 40, 18, 2, 41, 19],
+	[4, 40, 14, 2, 41, 15],
+	
+	// 9
+	[2, 146, 116],
+	[3, 58, 36, 2, 59, 37],
+	[4, 36, 16, 4, 37, 17],
+	[4, 36, 12, 4, 37, 13],
+	
+	// 10		
+	[2, 86, 68, 2, 87, 69],
+	[4, 69, 43, 1, 70, 44],
+	[6, 43, 19, 2, 44, 20],
+	[6, 43, 15, 2, 44, 16],
+
+	// 11
+	[4, 101, 81],
+	[1, 80, 50, 4, 81, 51],
+	[4, 50, 22, 4, 51, 23],
+	[3, 36, 12, 8, 37, 13],
+
+	// 12
+	[2, 116, 92, 2, 117, 93],
+	[6, 58, 36, 2, 59, 37],
+	[4, 46, 20, 6, 47, 21],
+	[7, 42, 14, 4, 43, 15],
+
+	// 13
+	[4, 133, 107],
+	[8, 59, 37, 1, 60, 38],
+	[8, 44, 20, 4, 45, 21],
+	[12, 33, 11, 4, 34, 12],
+
+	// 14
+	[3, 145, 115, 1, 146, 116],
+	[4, 64, 40, 5, 65, 41],
+	[11, 36, 16, 5, 37, 17],
+	[11, 36, 12, 5, 37, 13],
+
+	// 15
+	[5, 109, 87, 1, 110, 88],
+	[5, 65, 41, 5, 66, 42],
+	[5, 54, 24, 7, 55, 25],
+	[11, 36, 12],
+
+	// 16
+	[5, 122, 98, 1, 123, 99],
+	[7, 73, 45, 3, 74, 46],
+	[15, 43, 19, 2, 44, 20],
+	[3, 45, 15, 13, 46, 16],
+
+	// 17
+	[1, 135, 107, 5, 136, 108],
+	[10, 74, 46, 1, 75, 47],
+	[1, 50, 22, 15, 51, 23],
+	[2, 42, 14, 17, 43, 15],
+
+	// 18
+	[5, 150, 120, 1, 151, 121],
+	[9, 69, 43, 4, 70, 44],
+	[17, 50, 22, 1, 51, 23],
+	[2, 42, 14, 19, 43, 15],
+
+	// 19
+	[3, 141, 113, 4, 142, 114],
+	[3, 70, 44, 11, 71, 45],
+	[17, 47, 21, 4, 48, 22],
+	[9, 39, 13, 16, 40, 14],
+
+	// 20
+	[3, 135, 107, 5, 136, 108],
+	[3, 67, 41, 13, 68, 42],
+	[15, 54, 24, 5, 55, 25],
+	[15, 43, 15, 10, 44, 16],
+
+	// 21
+	[4, 144, 116, 4, 145, 117],
+	[17, 68, 42],
+	[17, 50, 22, 6, 51, 23],
+	[19, 46, 16, 6, 47, 17],
+
+	// 22
+	[2, 139, 111, 7, 140, 112],
+	[17, 74, 46],
+	[7, 54, 24, 16, 55, 25],
+	[34, 37, 13],
+
+	// 23
+	[4, 151, 121, 5, 152, 122],
+	[4, 75, 47, 14, 76, 48],
+	[11, 54, 24, 14, 55, 25],
+	[16, 45, 15, 14, 46, 16],
+
+	// 24
+	[6, 147, 117, 4, 148, 118],
+	[6, 73, 45, 14, 74, 46],
+	[11, 54, 24, 16, 55, 25],
+	[30, 46, 16, 2, 47, 17],
+
+	// 25
+	[8, 132, 106, 4, 133, 107],
+	[8, 75, 47, 13, 76, 48],
+	[7, 54, 24, 22, 55, 25],
+	[22, 45, 15, 13, 46, 16],
+
+	// 26
+	[10, 142, 114, 2, 143, 115],
+	[19, 74, 46, 4, 75, 47],
+	[28, 50, 22, 6, 51, 23],
+	[33, 46, 16, 4, 47, 17],
+
+	// 27
+	[8, 152, 122, 4, 153, 123],
+	[22, 73, 45, 3, 74, 46],
+	[8, 53, 23, 26, 54, 24],
+	[12, 45, 15, 28, 46, 16],
+
+	// 28
+	[3, 147, 117, 10, 148, 118],
+	[3, 73, 45, 23, 74, 46],
+	[4, 54, 24, 31, 55, 25],
+	[11, 45, 15, 31, 46, 16],
+
+	// 29
+	[7, 146, 116, 7, 147, 117],
+	[21, 73, 45, 7, 74, 46],
+	[1, 53, 23, 37, 54, 24],
+	[19, 45, 15, 26, 46, 16],
+
+	// 30
+	[5, 145, 115, 10, 146, 116],
+	[19, 75, 47, 10, 76, 48],
+	[15, 54, 24, 25, 55, 25],
+	[23, 45, 15, 25, 46, 16],
+
+	// 31
+	[13, 145, 115, 3, 146, 116],
+	[2, 74, 46, 29, 75, 47],
+	[42, 54, 24, 1, 55, 25],
+	[23, 45, 15, 28, 46, 16],
+
+	// 32
+	[17, 145, 115],
+	[10, 74, 46, 23, 75, 47],
+	[10, 54, 24, 35, 55, 25],
+	[19, 45, 15, 35, 46, 16],
+
+	// 33
+	[17, 145, 115, 1, 146, 116],
+	[14, 74, 46, 21, 75, 47],
+	[29, 54, 24, 19, 55, 25],
+	[11, 45, 15, 46, 46, 16],
+
+	// 34
+	[13, 145, 115, 6, 146, 116],
+	[14, 74, 46, 23, 75, 47],
+	[44, 54, 24, 7, 55, 25],
+	[59, 46, 16, 1, 47, 17],
+
+	// 35
+	[12, 151, 121, 7, 152, 122],
+	[12, 75, 47, 26, 76, 48],
+	[39, 54, 24, 14, 55, 25],
+	[22, 45, 15, 41, 46, 16],
+
+	// 36
+	[6, 151, 121, 14, 152, 122],
+	[6, 75, 47, 34, 76, 48],
+	[46, 54, 24, 10, 55, 25],
+	[2, 45, 15, 64, 46, 16],
+
+	// 37
+	[17, 152, 122, 4, 153, 123],
+	[29, 74, 46, 14, 75, 47],
+	[49, 54, 24, 10, 55, 25],
+	[24, 45, 15, 46, 46, 16],
+
+	// 38
+	[4, 152, 122, 18, 153, 123],
+	[13, 74, 46, 32, 75, 47],
+	[48, 54, 24, 14, 55, 25],
+	[42, 45, 15, 32, 46, 16],
+
+	// 39
+	[20, 147, 117, 4, 148, 118],
+	[40, 75, 47, 7, 76, 48],
+	[43, 54, 24, 22, 55, 25],
+	[10, 45, 15, 67, 46, 16],
+
+	// 40
+	[19, 148, 118, 6, 149, 119],
+	[18, 75, 47, 31, 76, 48],
+	[34, 54, 24, 34, 55, 25],
+	[20, 45, 15, 61, 46, 16]
+];
+
+QRRSBlock.getRSBlocks = function(typeNumber, errorCorrectLevel) {
+	
+	var rsBlock = QRRSBlock.getRsBlockTable(typeNumber, errorCorrectLevel);
+	
+	if (rsBlock === undefined) {
+		throw new Error("bad rs block @ typeNumber:" + typeNumber + "/errorCorrectLevel:" + errorCorrectLevel);
+	}
+
+	var length = rsBlock.length / 3;
+	
+	var list = [];
+	
+	for (var i = 0; i < length; i++) {
+
+		var count = rsBlock[i * 3 + 0];
+		var totalCount = rsBlock[i * 3 + 1];
+		var dataCount  = rsBlock[i * 3 + 2];
+
+		for (var j = 0; j < count; j++) {
+			list.push(new QRRSBlock(totalCount, dataCount) );	
+		}
+	}
+	
+	return list;
+};
+
+QRRSBlock.getRsBlockTable = function(typeNumber, errorCorrectLevel) {
+
+	switch(errorCorrectLevel) {
+	case QRErrorCorrectLevel.L :
+		return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 0];
+	case QRErrorCorrectLevel.M :
+		return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 1];
+	case QRErrorCorrectLevel.Q :
+		return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 2];
+	case QRErrorCorrectLevel.H :
+		return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 3];
+	default :
+		return undefined;
+	}
+};
+
+module.exports = QRRSBlock;
+
+};
+modules["QRUtil"]=function(module,exports,require){
+var QRMode = require('./QRMode');
+var QRPolynomial = require('./QRPolynomial');
+var QRMath = require('./QRMath');
+var QRMaskPattern = require('./QRMaskPattern');
+
+var QRUtil = {
+
+    PATTERN_POSITION_TABLE : [
+        [],
+        [6, 18],
+        [6, 22],
+        [6, 26],
+        [6, 30],
+        [6, 34],
+        [6, 22, 38],
+        [6, 24, 42],
+        [6, 26, 46],
+        [6, 28, 50],
+        [6, 30, 54],        
+        [6, 32, 58],
+        [6, 34, 62],
+        [6, 26, 46, 66],
+        [6, 26, 48, 70],
+        [6, 26, 50, 74],
+        [6, 30, 54, 78],
+        [6, 30, 56, 82],
+        [6, 30, 58, 86],
+        [6, 34, 62, 90],
+        [6, 28, 50, 72, 94],
+        [6, 26, 50, 74, 98],
+        [6, 30, 54, 78, 102],
+        [6, 28, 54, 80, 106],
+        [6, 32, 58, 84, 110],
+        [6, 30, 58, 86, 114],
+        [6, 34, 62, 90, 118],
+        [6, 26, 50, 74, 98, 122],
+        [6, 30, 54, 78, 102, 126],
+        [6, 26, 52, 78, 104, 130],
+        [6, 30, 56, 82, 108, 134],
+        [6, 34, 60, 86, 112, 138],
+        [6, 30, 58, 86, 114, 142],
+        [6, 34, 62, 90, 118, 146],
+        [6, 30, 54, 78, 102, 126, 150],
+        [6, 24, 50, 76, 102, 128, 154],
+        [6, 28, 54, 80, 106, 132, 158],
+        [6, 32, 58, 84, 110, 136, 162],
+        [6, 26, 54, 82, 110, 138, 166],
+        [6, 30, 58, 86, 114, 142, 170]
+    ],
+
+    G15 : (1 << 10) | (1 << 8) | (1 << 5) | (1 << 4) | (1 << 2) | (1 << 1) | (1 << 0),
+    G18 : (1 << 12) | (1 << 11) | (1 << 10) | (1 << 9) | (1 << 8) | (1 << 5) | (1 << 2) | (1 << 0),
+    G15_MASK : (1 << 14) | (1 << 12) | (1 << 10)    | (1 << 4) | (1 << 1),
+
+    getBCHTypeInfo : function(data) {
+        var d = data << 10;
+        while (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G15) >= 0) {
+            d ^= (QRUtil.G15 << (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G15) ) );    
+        }
+        return ( (data << 10) | d) ^ QRUtil.G15_MASK;
+    },
+
+    getBCHTypeNumber : function(data) {
+        var d = data << 12;
+        while (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G18) >= 0) {
+            d ^= (QRUtil.G18 << (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G18) ) );    
+        }
+        return (data << 12) | d;
+    },
+
+    getBCHDigit : function(data) {
+
+        var digit = 0;
+
+        while (data !== 0) {
+            digit++;
+            data >>>= 1;
+        }
+
+        return digit;
+    },
+
+    getPatternPosition : function(typeNumber) {
+        return QRUtil.PATTERN_POSITION_TABLE[typeNumber - 1];
+    },
+
+    getMask : function(maskPattern, i, j) {
+        
+        switch (maskPattern) {
+            
+        case QRMaskPattern.PATTERN000 : return (i + j) % 2 === 0;
+        case QRMaskPattern.PATTERN001 : return i % 2 === 0;
+        case QRMaskPattern.PATTERN010 : return j % 3 === 0;
+        case QRMaskPattern.PATTERN011 : return (i + j) % 3 === 0;
+        case QRMaskPattern.PATTERN100 : return (Math.floor(i / 2) + Math.floor(j / 3) ) % 2 === 0;
+        case QRMaskPattern.PATTERN101 : return (i * j) % 2 + (i * j) % 3 === 0;
+        case QRMaskPattern.PATTERN110 : return ( (i * j) % 2 + (i * j) % 3) % 2 === 0;
+        case QRMaskPattern.PATTERN111 : return ( (i * j) % 3 + (i + j) % 2) % 2 === 0;
+
+        default :
+            throw new Error("bad maskPattern:" + maskPattern);
+        }
+    },
+
+    getErrorCorrectPolynomial : function(errorCorrectLength) {
+
+        var a = new QRPolynomial([1], 0);
+
+        for (var i = 0; i < errorCorrectLength; i++) {
+            a = a.multiply(new QRPolynomial([1, QRMath.gexp(i)], 0) );
+        }
+
+        return a;
+    },
+
+    getLengthInBits : function(mode, type) {
+
+        if (1 <= type && type < 10) {
+
+            // 1 - 9
+
+            switch(mode) {
+            case QRMode.MODE_NUMBER     : return 10;
+            case QRMode.MODE_ALPHA_NUM  : return 9;
+            case QRMode.MODE_8BIT_BYTE  : return 8;
+            case QRMode.MODE_KANJI      : return 8;
+            default :
+                throw new Error("mode:" + mode);
+            }
+
+        } else if (type < 27) {
+
+            // 10 - 26
+
+            switch(mode) {
+            case QRMode.MODE_NUMBER     : return 12;
+            case QRMode.MODE_ALPHA_NUM  : return 11;
+            case QRMode.MODE_8BIT_BYTE  : return 16;
+            case QRMode.MODE_KANJI      : return 10;
+            default :
+                throw new Error("mode:" + mode);
+            }
+
+        } else if (type < 41) {
+
+            // 27 - 40
+
+            switch(mode) {
+            case QRMode.MODE_NUMBER     : return 14;
+            case QRMode.MODE_ALPHA_NUM  : return 13;
+            case QRMode.MODE_8BIT_BYTE  : return 16;
+            case QRMode.MODE_KANJI      : return 12;
+            default :
+                throw new Error("mode:" + mode);
+            }
+
+        } else {
+            throw new Error("type:" + type);
+        }
+    },
+
+    getLostPoint : function(qrCode) {
+        
+        var moduleCount = qrCode.getModuleCount();
+        var lostPoint = 0;
+        var row = 0; 
+        var col = 0;
+
+        
+        // LEVEL1
+        
+        for (row = 0; row < moduleCount; row++) {
+
+            for (col = 0; col < moduleCount; col++) {
+
+                var sameCount = 0;
+                var dark = qrCode.isDark(row, col);
+
+                for (var r = -1; r <= 1; r++) {
+
+                    if (row + r < 0 || moduleCount <= row + r) {
+                        continue;
+                    }
+
+                    for (var c = -1; c <= 1; c++) {
+
+                        if (col + c < 0 || moduleCount <= col + c) {
+                            continue;
+                        }
+
+                        if (r === 0 && c === 0) {
+                            continue;
+                        }
+
+                        if (dark === qrCode.isDark(row + r, col + c) ) {
+                            sameCount++;
+                        }
+                    }
+                }
+
+                if (sameCount > 5) {
+                    lostPoint += (3 + sameCount - 5);
+                }
+            }
+        }
+
+        // LEVEL2
+
+        for (row = 0; row < moduleCount - 1; row++) {
+            for (col = 0; col < moduleCount - 1; col++) {
+                var count = 0;
+                if (qrCode.isDark(row,     col    ) ) count++;
+                if (qrCode.isDark(row + 1, col    ) ) count++;
+                if (qrCode.isDark(row,     col + 1) ) count++;
+                if (qrCode.isDark(row + 1, col + 1) ) count++;
+                if (count === 0 || count === 4) {
+                    lostPoint += 3;
+                }
+            }
+        }
+
+        // LEVEL3
+
+        for (row = 0; row < moduleCount; row++) {
+            for (col = 0; col < moduleCount - 6; col++) {
+                if (qrCode.isDark(row, col) && 
+                        !qrCode.isDark(row, col + 1) && 
+                         qrCode.isDark(row, col + 2) && 
+                         qrCode.isDark(row, col + 3) && 
+                         qrCode.isDark(row, col + 4) && 
+                        !qrCode.isDark(row, col + 5) && 
+                         qrCode.isDark(row, col + 6) ) {
+                    lostPoint += 40;
+                }
+            }
+        }
+
+        for (col = 0; col < moduleCount; col++) {
+            for (row = 0; row < moduleCount - 6; row++) {
+                if (qrCode.isDark(row, col) &&
+                        !qrCode.isDark(row + 1, col) &&
+                         qrCode.isDark(row + 2, col) &&
+                         qrCode.isDark(row + 3, col) &&
+                         qrCode.isDark(row + 4, col) &&
+                        !qrCode.isDark(row + 5, col) &&
+                         qrCode.isDark(row + 6, col) ) {
+                    lostPoint += 40;
+                }
+            }
+        }
+
+        // LEVEL4
+        
+        var darkCount = 0;
+
+        for (col = 0; col < moduleCount; col++) {
+            for (row = 0; row < moduleCount; row++) {
+                if (qrCode.isDark(row, col) ) {
+                    darkCount++;
+                }
+            }
+        }
+        
+        var ratio = Math.abs(100 * darkCount / moduleCount / moduleCount - 50) / 5;
+        lostPoint += ratio * 10;
+
+        return lostPoint;       
+    }
+
+};
+
+module.exports = QRUtil;
+
+};
+modules["index"]=function(module,exports,require){
+//---------------------------------------------------------------------
+// QRCode for JavaScript
+//
+// Copyright (c) 2009 Kazuhiko Arase
+//
+// URL: http://www.d-project.com/
+//
+// Licensed under the MIT license:
+//   http://www.opensource.org/licenses/mit-license.php
+//
+// The word "QR Code" is registered trademark of 
+// DENSO WAVE INCORPORATED
+//   http://www.denso-wave.com/qrcode/faqpatent-e.html
+//
+//---------------------------------------------------------------------
+// Modified to work in node for this project (and some refactoring)
+//---------------------------------------------------------------------
+
+var QR8bitByte = require('./QR8bitByte');
+var QRUtil = require('./QRUtil');
+var QRPolynomial = require('./QRPolynomial');
+var QRRSBlock = require('./QRRSBlock');
+var QRBitBuffer = require('./QRBitBuffer');
+
+function QRCode(typeNumber, errorCorrectLevel) {
+	this.typeNumber = typeNumber;
+	this.errorCorrectLevel = errorCorrectLevel;
+	this.modules = null;
+	this.moduleCount = 0;
+	this.dataCache = null;
+	this.dataList = [];
+}
+
+QRCode.prototype = {
+	
+	addData : function(data) {
+		var newData = new QR8bitByte(data);
+		this.dataList.push(newData);
+		this.dataCache = null;
+	},
+	
+	isDark : function(row, col) {
+		if (row < 0 || this.moduleCount <= row || col < 0 || this.moduleCount <= col) {
+			throw new Error(row + "," + col);
+		}
+		return this.modules[row][col];
+	},
+
+	getModuleCount : function() {
+		return this.moduleCount;
+	},
+	
+	make : function() {
+		// Calculate automatically typeNumber if provided is < 1
+		if (this.typeNumber < 1 ){
+			var typeNumber = 1;
+			for (typeNumber = 1; typeNumber < 40; typeNumber++) {
+				var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, this.errorCorrectLevel);
+
+				var buffer = new QRBitBuffer();
+				var totalDataCount = 0;
+				for (var i = 0; i < rsBlocks.length; i++) {
+					totalDataCount += rsBlocks[i].dataCount;
+				}
+
+				for (var x = 0; x < this.dataList.length; x++) {
+					var data = this.dataList[x];
+					buffer.put(data.mode, 4);
+					buffer.put(data.getLength(), QRUtil.getLengthInBits(data.mode, typeNumber) );
+					data.write(buffer);
+				}
+				if (buffer.getLengthInBits() <= totalDataCount * 8)
+					break;
+			}
+			this.typeNumber = typeNumber;
+		}
+		this.makeImpl(false, this.getBestMaskPattern() );
+	},
+	
+	makeImpl : function(test, maskPattern) {
+		
+		this.moduleCount = this.typeNumber * 4 + 17;
+		this.modules = new Array(this.moduleCount);
+		
+		for (var row = 0; row < this.moduleCount; row++) {
+			
+			this.modules[row] = new Array(this.moduleCount);
+			
+			for (var col = 0; col < this.moduleCount; col++) {
+				this.modules[row][col] = null;//(col + row) % 3;
+			}
+		}
+	
+		this.setupPositionProbePattern(0, 0);
+		this.setupPositionProbePattern(this.moduleCount - 7, 0);
+		this.setupPositionProbePattern(0, this.moduleCount - 7);
+		this.setupPositionAdjustPattern();
+		this.setupTimingPattern();
+		this.setupTypeInfo(test, maskPattern);
+		
+		if (this.typeNumber >= 7) {
+			this.setupTypeNumber(test);
+		}
+	
+		if (this.dataCache === null) {
+			this.dataCache = QRCode.createData(this.typeNumber, this.errorCorrectLevel, this.dataList);
+		}
+	
+		this.mapData(this.dataCache, maskPattern);
+	},
+
+	setupPositionProbePattern : function(row, col)  {
+		
+		for (var r = -1; r <= 7; r++) {
+			
+			if (row + r <= -1 || this.moduleCount <= row + r) continue;
+			
+			for (var c = -1; c <= 7; c++) {
+				
+				if (col + c <= -1 || this.moduleCount <= col + c) continue;
+				
+				if ( (0 <= r && r <= 6 && (c === 0 || c === 6) ) || 
+                     (0 <= c && c <= 6 && (r === 0 || r === 6) ) || 
+                     (2 <= r && r <= 4 && 2 <= c && c <= 4) ) {
+					this.modules[row + r][col + c] = true;
+				} else {
+					this.modules[row + r][col + c] = false;
+				}
+			}		
+		}		
+	},
+	
+	getBestMaskPattern : function() {
+	
+		var minLostPoint = 0;
+		var pattern = 0;
+	
+		for (var i = 0; i < 8; i++) {
+			
+			this.makeImpl(true, i);
+	
+			var lostPoint = QRUtil.getLostPoint(this);
+	
+			if (i === 0 || minLostPoint >  lostPoint) {
+				minLostPoint = lostPoint;
+				pattern = i;
+			}
+		}
+	
+		return pattern;
+	},
+	
+	createMovieClip : function(target_mc, instance_name, depth) {
+	
+		var qr_mc = target_mc.createEmptyMovieClip(instance_name, depth);
+		var cs = 1;
+	
+		this.make();
+
+		for (var row = 0; row < this.modules.length; row++) {
+			
+			var y = row * cs;
+			
+			for (var col = 0; col < this.modules[row].length; col++) {
+	
+				var x = col * cs;
+				var dark = this.modules[row][col];
+			
+				if (dark) {
+					qr_mc.beginFill(0, 100);
+					qr_mc.moveTo(x, y);
+					qr_mc.lineTo(x + cs, y);
+					qr_mc.lineTo(x + cs, y + cs);
+					qr_mc.lineTo(x, y + cs);
+					qr_mc.endFill();
+				}
+			}
+		}
+		
+		return qr_mc;
+	},
+
+	setupTimingPattern : function() {
+		
+		for (var r = 8; r < this.moduleCount - 8; r++) {
+			if (this.modules[r][6] !== null) {
+				continue;
+			}
+			this.modules[r][6] = (r % 2 === 0);
+		}
+	
+		for (var c = 8; c < this.moduleCount - 8; c++) {
+			if (this.modules[6][c] !== null) {
+				continue;
+			}
+			this.modules[6][c] = (c % 2 === 0);
+		}
+	},
+	
+	setupPositionAdjustPattern : function() {
+	
+		var pos = QRUtil.getPatternPosition(this.typeNumber);
+		
+		for (var i = 0; i < pos.length; i++) {
+		
+			for (var j = 0; j < pos.length; j++) {
+			
+				var row = pos[i];
+				var col = pos[j];
+				
+				if (this.modules[row][col] !== null) {
+					continue;
+				}
+				
+				for (var r = -2; r <= 2; r++) {
+				
+					for (var c = -2; c <= 2; c++) {
+					
+						if (Math.abs(r) === 2 || 
+                            Math.abs(c) === 2 ||
+                            (r === 0 && c === 0) ) {
+							this.modules[row + r][col + c] = true;
+						} else {
+							this.modules[row + r][col + c] = false;
+						}
+					}
+				}
+			}
+		}
+	},
+	
+	setupTypeNumber : function(test) {
+	
+		var bits = QRUtil.getBCHTypeNumber(this.typeNumber);
+        var mod;
+	
+		for (var i = 0; i < 18; i++) {
+			mod = (!test && ( (bits >> i) & 1) === 1);
+			this.modules[Math.floor(i / 3)][i % 3 + this.moduleCount - 8 - 3] = mod;
+		}
+	
+		for (var x = 0; x < 18; x++) {
+			mod = (!test && ( (bits >> x) & 1) === 1);
+			this.modules[x % 3 + this.moduleCount - 8 - 3][Math.floor(x / 3)] = mod;
+		}
+	},
+	
+	setupTypeInfo : function(test, maskPattern) {
+	
+		var data = (this.errorCorrectLevel << 3) | maskPattern;
+		var bits = QRUtil.getBCHTypeInfo(data);
+        var mod;
+	
+		// vertical		
+		for (var v = 0; v < 15; v++) {
+	
+			mod = (!test && ( (bits >> v) & 1) === 1);
+	
+			if (v < 6) {
+				this.modules[v][8] = mod;
+			} else if (v < 8) {
+				this.modules[v + 1][8] = mod;
+			} else {
+				this.modules[this.moduleCount - 15 + v][8] = mod;
+			}
+		}
+	
+		// horizontal
+		for (var h = 0; h < 15; h++) {
+	
+			mod = (!test && ( (bits >> h) & 1) === 1);
+			
+			if (h < 8) {
+				this.modules[8][this.moduleCount - h - 1] = mod;
+			} else if (h < 9) {
+				this.modules[8][15 - h - 1 + 1] = mod;
+			} else {
+				this.modules[8][15 - h - 1] = mod;
+			}
+		}
+	
+		// fixed module
+		this.modules[this.moduleCount - 8][8] = (!test);
+	
+	},
+	
+	mapData : function(data, maskPattern) {
+		
+		var inc = -1;
+		var row = this.moduleCount - 1;
+		var bitIndex = 7;
+		var byteIndex = 0;
+		
+		for (var col = this.moduleCount - 1; col > 0; col -= 2) {
+	
+			if (col === 6) col--;
+	
+			while (true) {
+	
+				for (var c = 0; c < 2; c++) {
+					
+					if (this.modules[row][col - c] === null) {
+						
+						var dark = false;
+	
+						if (byteIndex < data.length) {
+							dark = ( ( (data[byteIndex] >>> bitIndex) & 1) === 1);
+						}
+	
+						var mask = QRUtil.getMask(maskPattern, row, col - c);
+	
+						if (mask) {
+							dark = !dark;
+						}
+						
+						this.modules[row][col - c] = dark;
+						bitIndex--;
+	
+						if (bitIndex === -1) {
+							byteIndex++;
+							bitIndex = 7;
+						}
+					}
+				}
+								
+				row += inc;
+	
+				if (row < 0 || this.moduleCount <= row) {
+					row -= inc;
+					inc = -inc;
+					break;
+				}
+			}
+		}
+		
+	}
+
+};
+
+QRCode.PAD0 = 0xEC;
+QRCode.PAD1 = 0x11;
+
+QRCode.createData = function(typeNumber, errorCorrectLevel, dataList) {
+	
+	var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, errorCorrectLevel);
+	
+	var buffer = new QRBitBuffer();
+	
+	for (var i = 0; i < dataList.length; i++) {
+		var data = dataList[i];
+		buffer.put(data.mode, 4);
+		buffer.put(data.getLength(), QRUtil.getLengthInBits(data.mode, typeNumber) );
+		data.write(buffer);
+	}
+
+	// calc num max data.
+	var totalDataCount = 0;
+	for (var x = 0; x < rsBlocks.length; x++) {
+		totalDataCount += rsBlocks[x].dataCount;
+	}
+
+	if (buffer.getLengthInBits() > totalDataCount * 8) {
+		throw new Error("code length overflow. (" + 
+            buffer.getLengthInBits() + 
+            ">" +  
+            totalDataCount * 8 + 
+            ")");
+	}
+
+	// end code
+	if (buffer.getLengthInBits() + 4 <= totalDataCount * 8) {
+		buffer.put(0, 4);
+	}
+
+	// padding
+	while (buffer.getLengthInBits() % 8 !== 0) {
+		buffer.putBit(false);
+	}
+
+	// padding
+	while (true) {
+		
+		if (buffer.getLengthInBits() >= totalDataCount * 8) {
+			break;
+		}
+		buffer.put(QRCode.PAD0, 8);
+		
+		if (buffer.getLengthInBits() >= totalDataCount * 8) {
+			break;
+		}
+		buffer.put(QRCode.PAD1, 8);
+	}
+
+	return QRCode.createBytes(buffer, rsBlocks);
+};
+
+QRCode.createBytes = function(buffer, rsBlocks) {
+
+	var offset = 0;
+	
+	var maxDcCount = 0;
+	var maxEcCount = 0;
+	
+	var dcdata = new Array(rsBlocks.length);
+	var ecdata = new Array(rsBlocks.length);
+	
+	for (var r = 0; r < rsBlocks.length; r++) {
+
+		var dcCount = rsBlocks[r].dataCount;
+		var ecCount = rsBlocks[r].totalCount - dcCount;
+
+		maxDcCount = Math.max(maxDcCount, dcCount);
+		maxEcCount = Math.max(maxEcCount, ecCount);
+		
+		dcdata[r] = new Array(dcCount);
+		
+		for (var i = 0; i < dcdata[r].length; i++) {
+			dcdata[r][i] = 0xff & buffer.buffer[i + offset];
+		}
+		offset += dcCount;
+		
+		var rsPoly = QRUtil.getErrorCorrectPolynomial(ecCount);
+		var rawPoly = new QRPolynomial(dcdata[r], rsPoly.getLength() - 1);
+
+		var modPoly = rawPoly.mod(rsPoly);
+		ecdata[r] = new Array(rsPoly.getLength() - 1);
+		for (var x = 0; x < ecdata[r].length; x++) {
+            var modIndex = x + modPoly.getLength() - ecdata[r].length;
+			ecdata[r][x] = (modIndex >= 0)? modPoly.get(modIndex) : 0;
+		}
+
+	}
+	
+	var totalCodeCount = 0;
+	for (var y = 0; y < rsBlocks.length; y++) {
+		totalCodeCount += rsBlocks[y].totalCount;
+	}
+
+	var data = new Array(totalCodeCount);
+	var index = 0;
+
+	for (var z = 0; z < maxDcCount; z++) {
+		for (var s = 0; s < rsBlocks.length; s++) {
+			if (z < dcdata[s].length) {
+				data[index++] = dcdata[s][z];
+			}
+		}
+	}
+
+	for (var xx = 0; xx < maxEcCount; xx++) {
+		for (var t = 0; t < rsBlocks.length; t++) {
+			if (xx < ecdata[t].length) {
+				data[index++] = ecdata[t][xx];
+			}
+		}
+	}
+
+	return data;
+
+};
+
+module.exports = QRCode;
+
+};
+function req(name){name=name.replace(/^\.\//,'').replace(/\.js$/,''); if(cache[name]) return cache[name].exports; if(!modules[name])throw Error('Missing QR module '+name); const m={exports:{}};cache[name]=m;modules[name](m,m.exports,req);return m.exports;}window.LocalQR=req('index');window.LocalQREcc=req('QRErrorCorrectLevel');})();
+</script>
+<script>
+'use strict';
+const CODE128_PATTERNS=["212222", "222122", "222221", "121223", "121322", "131222", "122213", "122312", "132212", "221213", "221312", "231212", "112232", "122132", "122231", "113222", "123122", "123221", "223211", "221132", "221231", "213212", "223112", "312131", "311222", "321122", "321221", "312212", "322112", "322211", "212123", "212321", "232121", "111323", "131123", "131321", "112313", "132113", "132311", "211313", "231113", "231311", "112133", "112331", "132131", "113123", "113321", "133121", "313121", "211331", "231131", "213113", "213311", "213131", "311123", "311321", "331121", "312113", "312311", "332111", "314111", "221411", "431111", "111224", "111422", "121124", "121421", "141122", "141221", "112214", "112412", "122114", "122411", "142112", "142211", "241211", "221114", "413111", "241112", "134111", "111242", "121142", "121241", "114212", "124112", "124211", "411212", "421112", "421211", "212141", "214121", "412121", "111143", "111341", "131141", "114113", "114311", "411113", "411311", "113141", "114131", "311141", "411131", "211412", "211214", "211232", "2331112"];
+const $=id=>document.getElementById(id);
+const MAX_FILE=10*1024*1024,MAX_XML=20*1024*1024,MAX_ROWS=20000,MAX_ITEMS=10000;
+let source=null,sourceRows=[],items=[],index=0,busy=false,renderOK=false,loadToken=0,candidates=[];
+const txt=v=>v==null?'':String(v);
+const showMessage=(id,text,kind='')=>{const e=$(id);e.textContent=text;e.hidden=!text;e.className='hint'+(kind?' '+kind:'');};
+function colName(n){let s='';for(n++;n>0;n=Math.floor((n-1)/26))s=String.fromCharCode(65+(n-1)%26)+s;return s;}
+function colIndex(s){let n=0;for(const c of s)n=n*26+c.charCodeAt(0)-64;return n-1;}
+function normalizeHeader(v){return txt(v).trim().toLowerCase().replace(/[\s_\-:：()（）/]/g,'');}
+function textCells(rows){return rows.map(r=>r.map(v=>({v:txt(v),type:'text'})));}
+function parseDelimited(text,sep){
+ text=text.replace(/^\uFEFF/,'');let rows=[],row=[],field='',quoted=false,atStart=true;
+ for(let i=0;i<text.length;i++){
+  let ch=text[i];
+  if(quoted){if(ch==='"'){if(text[i+1]==='"'){field+='"';i++;}else quoted=false;}else field+=ch;continue;}
+  if(ch==='"'&&atStart){quoted=true;atStart=false;continue;}
+  if(ch===sep){row.push(field);field='';atStart=true;continue;}
+  if(ch==='\r'||ch==='\n'){if(ch==='\r'&&text[i+1]==='\n')i++;row.push(field);rows.push(row);row=[];field='';atStart=true;if(rows.length>MAX_ROWS)throw Error('行数超过 20,000，请拆分清单。');continue;}
+  field+=ch;atStart=false;
+ }
+ if(quoted)throw Error('文本中存在未闭合的双引号，请检查 CSV 格式。');
+ if(field!==''||row.length) {row.push(field);rows.push(row);}
+ if(rows.length>MAX_ROWS)throw Error('行数超过 20,000，请拆分清单。');
+ return rows;
+}
+function guessSep(text,isCSV){if(!isCSV)return '\t';const first=text.split(/\r?\n/,1)[0];let q=false,count={',':0,';':0,'\t':0};for(let i=0;i<first.length;i++){if(first[i]==='"'){if(q&&first[i+1]==='"')i++;else q=!q;}else if(!q&&first[i] in count)count[first[i]]++;}return Object.entries(count).sort((a,b)=>b[1]-a[1])[0][0];}
+// Native ZIP/XLSX reader. No spreadsheet formulas, macros or external relationships are executed.
+const CRC_TABLE=(()=>{let a=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xedb88320^(c>>>1):c>>>1;a[n]=c>>>0;}return a;})();
+function crc32(a){let c=0xffffffff;for(const x of a)c=CRC_TABLE[(c^x)&255]^(c>>>8);return (c^0xffffffff)>>>0;}
+async function unzipIndex(buffer){
+ const u=new Uint8Array(buffer),dv=new DataView(buffer);let end=-1;
+ for(let p=u.length-22;p>=Math.max(0,u.length-65557);p--)if(dv.getUint32(p,true)===0x06054b50&&p+22+dv.getUint16(p+20,true)===u.length){end=p;break;}
+ if(end<0)throw Error('不是有效的 .xlsx 文件，或文件已加密。');
+ const count=dv.getUint16(end+10,true),offset=dv.getUint32(end+16,true);
+ if(count===65535||offset===0xffffffff||dv.getUint16(end+4,true)!==0)throw Error('不支持 ZIP64 或分卷文件。');
+ if(count>12000)throw Error('工作簿内部文件过多，请另存为仅包含 SN 的新工作簿。');
+ let entries=new Map(),p=offset;
+ for(let i=0;i<count;i++){
+  if(p+46>u.length||dv.getUint32(p,true)!==0x02014b50)throw Error('工作簿压缩目录损坏。');
+  const flags=dv.getUint16(p+8,true),method=dv.getUint16(p+10,true),crc=dv.getUint32(p+16,true),compressed=dv.getUint32(p+20,true),size=dv.getUint32(p+24,true),nl=dv.getUint16(p+28,true),el=dv.getUint16(p+30,true),cl=dv.getUint16(p+32,true),local=dv.getUint32(p+42,true);
+  if(p+46+nl+el+cl>u.length)throw Error('工作簿目录长度异常。');
+  const name=new TextDecoder().decode(u.subarray(p+46,p+46+nl));entries.set(name,{flags,method,crc,compressed,size,local});p+=46+nl+el+cl;
+ }
+ let totalRead=0;
+ return async function read(name,optional=false){
+  const e=entries.get(name);if(!e){if(optional)return null;throw Error('工作簿缺少 '+name+'。');}
+  if(e.flags&1)throw Error('不支持加密的工作簿。');
+  if(e.size>MAX_XML||totalRead+e.size>50*1024*1024)throw Error('工作簿解压内容过大，请仅保留 SN 清单后重试。');
+  const p=e.local;if(p+30>u.length||dv.getUint32(p,true)!==0x04034b50)throw Error('工作簿内容损坏。');
+  const start=p+30+dv.getUint16(p+26,true)+dv.getUint16(p+28,true);if(start+e.compressed>u.length)throw Error('工作簿数据范围异常。');
+  let raw=u.subarray(start,start+e.compressed),data;
+  if(e.method===0)data=raw;
+  else if(e.method===8){
+   let ds;try{ds=new DecompressionStream('deflate-raw');}catch{throw Error('此浏览器不能直接读取 .xlsx。请用新版 Chrome / Edge，或复制 Excel 的 SN 列后粘贴。');}
+   const reader=new Blob([raw]).stream().pipeThrough(ds).getReader();let chunks=[],length=0;
+   try{while(true){let {value,done}=await reader.read();if(done)break;length+=value.length;if(length>MAX_XML||length>e.size){await reader.cancel();throw Error('解压内容超过安全限额。');}chunks.push(value);}}finally{reader.releaseLock();}
+   data=new Uint8Array(length);let at=0;for(const c of chunks){data.set(c,at);at+=c.length;}
+  }else throw Error('此文件采用不支持的压缩格式。');
+  if(data.length!==e.size||crc32(data)!==e.crc)throw Error('文件完整性校验失败，请重新保存 Excel 后重试。');totalRead+=data.length;
+  let xml=new DOMParser().parseFromString(new TextDecoder().decode(data),'application/xml');if(xml.getElementsByTagName('parsererror').length)throw Error('工作簿 XML 内容无效。');return xml;
+ };
+}
+function els(node,name){return Array.from(node.getElementsByTagNameNS('*',name));}
+function child(node,name){return Array.from(node.children).find(e=>e.localName===name);}
+function richText(node){return els(node,'t').filter(t=>{for(let p=t.parentElement;p&&p!==node;p=p.parentElement)if(p.localName==='rPh')return false;return true;}).map(t=>t.textContent).join('');}
+function resolvePath(base,target){const parts=(target.startsWith('/')?target.slice(1):base+target).split('/'),out=[];for(const s of parts){if(!s||s==='.')continue;if(s==='..'){if(!out.length)throw Error('工作簿路径无效。');out.pop();}else out.push(s);}return out.join('/');}
+async function readXlsx(file){
+ const read=await unzipIndex(await file.arrayBuffer());const book=await read('xl/workbook.xml'),rels=await read('xl/_rels/workbook.xml.rels');const rm=new Map(els(rels,'Relationship').map(e=>[e.getAttribute('Id'),e]));
+ let sheets=els(book,'sheet').map(e=>{const id=e.getAttributeNS('http://schemas.openxmlformats.org/officeDocument/2006/relationships','id')||Array.from(e.attributes).find(a=>a.localName==='id')?.value;const r=rm.get(id);if(!r||r.getAttribute('TargetMode')==='External')throw Error('工作表关系异常。');return {name:e.getAttribute('name'),target:resolvePath('xl/',r.getAttribute('Target'))};});
+ if(!sheets.length||sheets.length>64)throw Error('工作簿无可用工作表，或工作表数量超过 64。');
+ const sharedRel=Array.from(rm.values()).find(r=>(r.getAttribute('Type')||'').endsWith('/sharedStrings'));
+ const sx=await read(sharedRel?resolvePath('xl/',sharedRel.getAttribute('Target')):'xl/sharedStrings.xml',true);const shared=sx?els(sx,'si').map(richText):[];const cache=new Map();
+ return {name:file.name,sheets,async rows(n){if(cache.has(n))return cache.get(n);const xml=await read(sheets[n].target);let rows=[];
+   for(const r of els(xml,'row')){let rowNo=Number(r.getAttribute('r'))||rows.length+1;let cells=[];let any=false;
+    for(const c of Array.from(r.children).filter(e=>e.localName==='c')){let addr=c.getAttribute('r')||'A'+rowNo;let letters=addr.match(/^[A-Z]+/);if(!letters)continue;let col=colIndex(letters[0]);if(col>=512){if(child(c,'v')?.textContent||child(c,'is')||child(c,'f'))throw Error('有数据的列超出第 512 列，请复制所需连续列后粘贴。');continue;}const v=child(c,'v'),is=child(c,'is'),f=child(c,'f'),t=c.getAttribute('t');let val='',type='text';
+     if(t==='s'){const si=Number(v?.textContent);if(!Number.isInteger(si)||si<0||si>=shared.length)throw Error('共享字符串引用无效：'+addr);val=shared[si];}
+     else if(t==='inlineStr')val=is?richText(is):'';
+     else{val=v?.textContent||'';if(t==='e')type='error';else if(t==='b'||t==='d')type='other';else if(t!=='str'&&val!=='')type='number';}
+     if(f)type='formula';if(val!==''||f){any=true;cells[col]={v:val,type};}
+    }
+    if(any){if(rowNo>MAX_ROWS)throw Error('有数据的行超出 20,000 行，请仅复制所需 SN 后粘贴。');rows[rowNo-1]=cells;}
+   }cache.set(n,rows);return rows;
+  }};
+}
+// All column positions are zero-based internally and one-based in the interface.
+let sourceMaxCols=0, mappingReady=false, selectionConfirmed=false, mappingCanApply=false;
+const HEADER_SCAN_ROWS=50;
+const SN_HEADERS=new Set(['sn','sn码','sn号','sn编码','sn号码','sn序列号','序列号sn','序列号','产品序列号','设备序列号','机身序列号','商品序列号','出厂序列号','出厂序号sn','serial','serialnumber','serialno','serialnum','deviceserialnumber','productserialnumber','serialnumbersn','snserialnumber','产品sn','设备sn','机身sn','商品sn','主机sn','电池sn','相机sn','云台sn']);
+const OTHER_HEADERS=new Set(['名称','产品','产品名称','商品','商品名称','型号','产品型号','规格','状态','数量','仓位','库位','仓库','门店','日期','入库日期','备注','编号','编码','价格','金额','条码','条形码','商品条码','商品编码','物料编码','订单号','批次','批次号','ean','upc','sku','imei','imei1','imei2','mac','mac地址','id','name','model','product','status','quantity','location','date','remark','description','code']);
+function snHeader(v){
+ const n=normalizeHeader(txt(v).normalize('NFKC').replace(/[\u200b-\u200d\ufeff]/g,'')).replace(/[.。\[\]【】]/g,'');
+ return SN_HEADERS.has(n)||/^(?:(?:商品|产品|设备|机身|主机|电池|相机|云台))?sn(?:码|号|编码|号码|序列号)?$/.test(n)||/^[\u4e00-\u9fff]{1,10}(?:sn|序列号)$/.test(n);
+}
+
+function leadingTitleRows(){
+ // A full field-header row below takes precedence over single-cell title lines.
+ let header=-1,occupied=0;
+ for(let r=0;r<sourceRows.length&&occupied<HEADER_SCAN_ROWS;r++){
+  const cells=(sourceRows[r]||[]).filter(c=>txt(c?.v).trim()!=='');
+  if(!cells.length)continue;occupied++;
+  if(cells.length>1&&cells.some(c=>c.type!=='formula'&&snHeader(c.v))){header=r;break;}
+ }
+ const skipped=new Set();
+ if(header>0)for(let r=0;r<header;r++)if((sourceRows[r]||[]).filter(c=>txt(c?.v).trim()!=='').length<=1)skipped.add(r);
+ return skipped;
+}
+
+function looksSerial(v){
+ let s=txt(v).trim().replace(/^(?:S\s*\/\s*N|SN)\s*[:：]\s*/i,'');
+ if(s.length<6||s.length>80||!/[0-9]/.test(s))return false;
+ if(/^\d{4}[-/.]\d{1,2}[-/.]\d{1,2}$/.test(s)||/^[+-]?\d+(?:\.\d+)?[eE][+-]?\d+$/.test(s))return false;
+ return /^[A-Za-z0-9][A-Za-z0-9._/-]*$/.test(s)&&(/[A-Za-z]/.test(s)||/^\d{8,80}$/.test(s));
+}
+function firstDataRow(){const i=sourceRows.findIndex(r=>r&&r.some(c=>c&&txt(c.v).trim()!==''));return i<0?0:i;}
+function analyzeSNColumns(){
+ const headers=new Map(),titleRows=leadingTitleRows();let occupied=0;
+ for(let r=0;r<sourceRows.length&&occupied<HEADER_SCAN_ROWS;r++){
+  const row=sourceRows[r];if(titleRows.has(r))continue;if(!row||!row.some(c=>c&&txt(c.v).trim()!==''))continue;occupied++;
+  for(let c=0;c<sourceMaxCols;c++)if(snHeader(row[c]?.v)&&row[c]?.type!=='formula'){
+   if(!headers.has(c))headers.set(c,{col:c,header:r+1,start:r+2,label:txt(row[c].v),kind:'header'});
+  }
+ }
+ if(headers.size)return {kind:'header',choices:Array.from(headers.values()).sort((a,b)=>a.col-b.col)};
+ const choices=[];
+ for(let c=0;c<sourceMaxCols;c++){
+  const entries=[];for(let r=0;r<sourceRows.length&&entries.length<80;r++){const v=txt(sourceRows[r]?.[c]?.v);if(v.trim()!=='')entries.push({r,v,type:sourceRows[r][c].type});}
+  if(!entries.length)continue;
+  const first=entries[0],headerLike=OTHER_HEADERS.has(normalizeHeader(first.v));
+  // An explicit EAN, SKU or other named identifier is not assumed to be an SN.
+  if(headerLike&&!['编号','编码','code','id'].includes(normalizeHeader(first.v)))continue;
+  if(!headerLike&&!looksSerial(first.v))continue;
+  const body=headerLike?entries.slice(1):entries;
+  const plausible=body.filter(e=>looksSerial(e.v)&&!['formula','error','other'].includes(e.type));
+  if(!body.length||plausible.length/body.length<0.8)continue;
+  if(plausible.length===1&&body.length>1)continue;
+  choices.push({col:c,header:headerLike?first.r+1:0,start:headerLike?first.r+2:first.r+1,label:headerLike?first.v:'无 SN 表头',kind:'pattern',count:plausible.length,sample:plausible[0]?.v||''});
+ }
+ return {kind:'pattern',choices};
+}
+function resetViewer(message='数据源已更换，请核对范围后开始显示。'){items=[];index=0;document.body.classList.remove('viewing');document.body.classList.remove('focus');if($('settings'))$('settings').setAttribute('aria-expanded','true');render();$('status').textContent=message;}
+function setMappingLock(){
+ for(const id of ['column','columnNumber','headerRow','startRow','autoDetect'])$(id).disabled=busy||!mappingReady;
+ $('sheet').disabled=busy;
+ $('apply').disabled=busy||!mappingReady||!mappingCanApply;
+}
+function setSourceControls(){const sel=$('sheet');sel.replaceChildren();source.sheets.forEach((s,i)=>sel.add(new Option(s.name,String(i))));$('mapping').hidden=false;}
+function refreshColumnLabels(){
+ const h=Number($('headerRow').value);const headers=Number.isInteger(h)&&h>0?sourceRows[h-1]:null;
+ for(const option of $('column').options){if(option.value==='')continue;const c=Number(option.value);const label=txt(headers?.[c]?.v).trim();option.textContent=`${colName(c)} 列（第 ${c+1} 列）${label?' · '+label.slice(0,40):''}`;}
+}
+function clearChoices(){$('detectionChoices').replaceChildren();$('detectionChoices').hidden=true;}
+function applyDetected(choice,explicit=false){
+ if(items.length)resetViewer('SN 定位已更改，请核对新范围后开始显示。');
+ $('column').value=String(choice.col);$('columnNumber').value=String(choice.col+1);$('headerRow').value=String(choice.header);$('startRow').value=String(choice.start);selectionConfirmed=true;$('ackNumeric').checked=false;
+ refreshColumnLabels();clearChoices();
+ const loc=`${colName(choice.col)} 列（第 ${choice.col+1} 列）`;
+ const detail=choice.header?`表头在第 ${choice.header} 行，数据从第 ${choice.start} 行开始。`:`未设表头，数据从第 ${choice.start} 行开始。`;
+ showMessage('detectionMessage',choice.kind==='header'?`${explicit?'已选择':'识别到'} ${loc}：${choice.label}。\n${detail}请核对下方预览。`:`建议 ${loc}，依据是字母 / 数字组合等内容特征，不是厂商 SN 校验。\n${detail}务必人工核对。`,choice.kind==='header'?'':'warn');
+ updatePreview();
+}
+function autoDetectSN(){
+ if(!mappingReady||busy)return;
+ if(items.length)resetViewer('已重新识别 SN 位置，请核对后开始显示。');
+ $('ackNumeric').checked=false;clearChoices();
+ const result=analyzeSNColumns();
+ if(result.choices.length===1){applyDetected(result.choices[0]);return;}
+ selectionConfirmed=false;$('column').value='';$('columnNumber').value='';
+ if(result.choices.length>1){
+  showMessage('detectionMessage',`找到 ${result.choices.length} 个${result.kind==='header'?' SN 表头':'疑似编号列'}，未自动选定。\n点击一个候选，或手动指定列号，避免把其他编号当成 SN。`,'warn');
+  const box=$('detectionChoices');box.hidden=false;
+  for(const choice of result.choices){const button=document.createElement('button');button.type='button';button.textContent=`${colName(choice.col)} 列 / 第 ${choice.col+1} 列 · ${choice.header?choice.label+'（表头第 '+choice.header+' 行）':'内容样例 '+choice.sample.slice(0,22)}`;button.onclick=()=>applyDetected(choice,true);box.append(button);}
+ }else showMessage('detectionMessage','没有找到可靠的 SN 位置。请手动选择 SN 所在列、表头行和数据起始行。不会默认把第一列当成 SN。','warn');
+ updatePreview();
+}
+async function chooseSheet(){
+ const token=++loadToken,localSource=source,sheetIndex=Number($('sheet').value);mappingReady=false;selectionConfirmed=false;sourceRows=[];sourceMaxCols=0;setMappingLock();clearChoices();showMessage('detectionMessage','');showMessage('importMessage','正在读取本地数据…');
+ try{
+  const rows=await localSource.rows(sheetIndex);if(token!==loadToken)return;sourceRows=rows;
+  for(const r of rows)if(r)sourceMaxCols=Math.max(sourceMaxCols,r.length);
+  if(sourceMaxCols>512)throw Error('已读取范围超过 512 列，请只保留所需列后重新导入。');
+  if(!sourceMaxCols)throw Error('所选工作表没有可用数据。');
+  $('column').replaceChildren(new Option('请选择 SN 所在列',''));
+  for(let c=0;c<sourceMaxCols;c++)$('column').add(new Option(`${colName(c)} 列（第 ${c+1} 列）`,String(c)));
+  $('columnNumber').max=String(sourceMaxCols);$('columnNumber').value='';$('headerRow').value='0';$('startRow').value=String(firstDataRow()+1);$('ackNumeric').checked=false;
+  mappingReady=true;setMappingLock();showMessage('importMessage','');autoDetectSN();
+ }catch(e){if(token===loadToken){mappingReady=false;setMappingLock();showMessage('importMessage',e.message||String(e),'error');}}
+}
+function mappingChanged(columnChange=false){
+ if(!mappingReady||busy)return;
+ resetViewer('导入列或行范围已更改，请核对预览后点击「开始显示」。');$('ackNumeric').checked=false;
+ if(columnChange){selectionConfirmed=$('column').value!=='';clearChoices();const col=Number($('column').value);showMessage('detectionMessage',selectionConfirmed?`已手动选择 ${colName(col)} 列（第 ${col+1} 列）。请核对表头行、起始行及左右字段。`:'请输入有效列号，或从列表中选择。',selectionConfirmed?'':'warn');}
+ refreshColumnLabels();updatePreview();
+}
+function gather(){
+ const out=[],blocked=[];let empty=0,nontext=0;
+ if(!mappingReady||!selectionConfirmed||$('column').value==='')return {out,empty,nontext,blocked:['请先确认 SN 所在列。']};
+ const col=Number($('column').value),start=Number($('startRow').value),header=Number($('headerRow').value);
+ if(!Number.isInteger(col)||col<0||col>=sourceMaxCols)return {out,empty,nontext,blocked:['SN 列号超出已读取范围。']};
+ if(!Number.isInteger(start)||start<1||start>MAX_ROWS)return {out,empty,nontext,blocked:['起始行应为 1–20,000 的整数。']};
+ if($('headerRow').value===''||!Number.isInteger(header)||header<0||header>=start)return {out,empty,nontext,blocked:['表头行应为 0（无表头），或小于数据起始行的正整数。']};
+ const headers=header>0?sourceRows[header-1]||[]:[],sheetName=source.sheets[Number($('sheet').value)].name;
+ for(let r=start-1;r<sourceRows.length;r++){
+  const c=sourceRows[r]?.[col],val=txt(c?.v);if(!val.trim()&&c?.type!=='formula'&&c?.type!=='error'){empty++;continue;}
+  const warnings=[];if(val!==val.trim())warnings.push('有首尾空格（原样保留）');
+  if(/^(?:S\s*\/\s*N|SN)\s*[:：]/i.test(val.trim()))warnings.push('原文自带 SN / S/N 前缀，编码也会保留；请核对是否属于原始 SN');
+  if(c.type==='formula')blocked.push(`第 ${r+1} 行含公式。请在 Excel 中粘贴为值后重新导入。`);
+  else if(c.type==='error'||c.type==='other')blocked.push(`第 ${r+1} 行不是文本 SN，请先核对源数据。`);
+  else if(c.type==='number'){
+   nontext++;warnings.push('原单元格为数值，请核对前导零');
+   if(!/^\d{1,15}$/.test(val))blocked.push(`第 ${r+1} 行为长数字、科学计数或非整数，不能安全作为 SN。请从原始记录恢复为文本。`);
+  }
+  if(val.length>512)blocked.push(`第 ${r+1} 行超过 512 个字符。`);
+  if(/[\x00-\x1f\x7f]/.test(val))blocked.push(`第 ${r+1} 行含换行、制表符或控制字符，请核对。`);
+  out.push({sn:val,row:r+1,column:colName(col),colIndex:col,source:sheetName,warnings,cells:sourceRows[r]||[],headers,maxCols:sourceMaxCols,headerRow:header});
+ }
+ if(out.length>MAX_ITEMS)blocked.push('超过 10,000 条，请拆分清单。');
+ return {out,empty,nontext,blocked};
+}
+function cellInfo(record,col){
+ if(col<0||col>=record.maxCols)return {exists:false,col,label:'',value:col<0?'SN 已在第一列':'SN 已在已读取范围的最右列',note:'',empty:true};
+ const cell=record.cells[col],v=txt(cell?.v),header=txt(record.headers[col]?.v).trim();
+ let value=v===''?'（空白）':v.trim()===''?'（仅含空白字符）':v;
+ let note='';if(cell?.type==='formula'){note='公式缓存值，未重新计算';if(v==='')value='（公式无缓存值）';}else if(cell?.type==='error')note='Excel 错误值';
+ return {exists:true,col,label:header||'（无表头）',value,note,empty:v.trim()===''};
+}
+function previewCell(record,col,isSN=false){
+ const td=document.createElement('td');if(isSN)td.className='selected-col';
+ const info=cellInfo(record,col);const name=document.createElement('div'),value=document.createElement('div');
+ name.className='preview-label';name.textContent=info.exists?`${colName(col)} · ${info.label}`:col<0?'无左侧列':'无右侧列';
+ value.className='preview-value'+(isSN?' mono':'');value.textContent=info.value;value.title=info.value;
+ td.append(name,value);return td;
+}
+function updatePreview(){
+ if(!source||!mappingReady){mappingCanApply=false;$('apply').disabled=true;return;}
+ const g=gather();candidates=g.out;const pre=$('preview');pre.replaceChildren();
+ if(candidates.length){
+  const table=document.createElement('table'),thead=document.createElement('thead'),tr=document.createElement('tr');
+  for(const h of ['源行','左侧列','SN 列','右侧列']){const th=document.createElement('th');th.textContent=h;tr.append(th);}thead.append(tr);table.append(thead);const tbody=document.createElement('tbody');
+  for(const r of candidates.slice(0,4)){const row=document.createElement('tr'),number=document.createElement('td');number.textContent=String(r.row);row.append(number,previewCell(r,r.colIndex-1),previewCell(r,r.colIndex,true),previewCell(r,r.colIndex+1));tbody.append(row);}table.append(tbody);pre.append(table);
+ }
+ const seen=new Set();let duplicate=0,spaces=0,prefixes=0;for(const r of candidates){if(seen.has(r.sn))duplicate++;seen.add(r.sn);if(r.sn!==r.sn.trim())spaces++;if(/^(?:S\s*\/\s*N|SN)\s*[:：]/i.test(r.sn.trim()))prefixes++;}
+ const position=selectionConfirmed&&$('column').value!==''?`${colName(Number($('column').value))} 列 / 第 ${Number($('column').value)+1} 列 · `:'';
+ $('mappingStats').textContent=`${position}${candidates.length.toLocaleString()} 条 SN · ${g.empty} 行 SN 为空已忽略`;
+ const warnings=[];
+ if(duplicate)warnings.push(`${duplicate} 条重复记录：保留，不自动去重。`);
+ if(spaces)warnings.push(`${spaces} 条含首尾空格：保留原文，请核对。`);
+ if(prefixes)warnings.push(`${prefixes} 条原文自带 SN / S/N 前缀：不会自动删除，扫描内容也会包含前缀。`);
+ if(g.nontext)warnings.push(`${g.nontext} 条来自非文本单元格：请核对前导零与原始位数。`);
+ if(!candidates.length&&!g.blocked.length)warnings.push('没有可显示的 SN，请检查列和起始行。');
+ if(g.blocked.length)warnings.unshift(...g.blocked.slice(0,3));
+ showMessage('mappingWarning',warnings.join('\n'),g.blocked.length?'error':'warn');$('ackWrap').hidden=!g.nontext||!!g.blocked.length;
+ mappingCanApply=!!candidates.length&&!g.blocked.length&&!(g.nontext&&!$('ackNumeric').checked);$('apply').disabled=busy||!mappingCanApply;
+}
+async function loadFile(file){
+ if(!file||busy)return;resetViewer();mappingReady=false;selectionConfirmed=false;$('mapping').hidden=true;source=null;sourceRows=[];showMessage('importMessage','正在读取本地文件…');$('fileName').textContent=file.name;const token=++loadToken;
+ try{
+  if(file.size>MAX_FILE)throw Error('文件超过 10 MB。请只保留需要的表格范围后重试。');let s;
+  if(/\.xlsx$/i.test(file.name))s=await readXlsx(file);
+  else if(/\.(csv|txt|tsv)$/i.test(file.name)){
+   const raw=await file.arrayBuffer();let t;try{t=new TextDecoder('utf-8',{fatal:true}).decode(raw);}catch{throw Error('请把文本另存为 UTF-8 编码后再导入，或直接复制 Excel 中的多列后粘贴。');}
+   const rows=textCells(parseDelimited(t,guessSep(t,/\.csv$/i.test(file.name))));s={name:file.name,sheets:[{name:file.name}],rows:async()=>rows};
+  }else throw Error('请选择 .xlsx、CSV、TXT 或 TSV；旧式 .xls 请先另存为 .xlsx。');
+  if(token!==loadToken)return;source=s;setSourceControls();await chooseSheet();
+ }catch(e){if(token===loadToken)showMessage('importMessage',e.message||String(e),'error');}
+}
+async function loadPaste(sample=false){
+ if(busy)return;loadToken++;resetViewer();mappingReady=false;selectionConfirmed=false;source=null;sourceRows=[];$('mapping').hidden=true;let text=$('paste').value;
+ if(sample){text='库位\t产品名称\tSN\t核对状态\t数量\t备注\nA-01\t演示产品 A\tDEMO000001\t待核对\t1\t演示数据，请勿用于真实业务\nA-02\t演示产品 B\tDEMO000002\t已入库\t2\t切换后左右字段同步更新\nA-03\t\t000012345678901234\t待核对\t1\t左侧空白，不挪用其他行内容';$('paste').value=text;}
+ try{
+  if(!text.trim())throw Error('请粘贴 SN 清单，或包含 SN 及左右字段的多列表格。');if(text.length>2*1024*1024)throw Error('粘贴内容过大，请分批处理。');
+  const rows=textCells(parseDelimited(text,'\t'));source={name:sample?'演示数据（请勿用于真实业务）':'粘贴内容',sheets:[{name:sample?'演示数据（非真实 SN）':'粘贴内容'}],rows:async()=>rows};
+  $('fileName').textContent=source.name+' · 行列号按粘贴区域重新计数；保留 Excel 原坐标请导入 .xlsx。';setSourceControls();
+  await chooseSheet();if(sample&&source?.name.startsWith('演示')&&!$('apply').disabled)applyData();
+ }catch(e){showMessage('importMessage',e.message||String(e),'error');}
+}
+function applyData(){if(busy||!mappingReady)return;updatePreview();if($('apply').disabled)return;items=candidates.map(r=>({...r,warnings:r.warnings.slice()}));index=0;document.body.classList.add('viewing');$('settings').setAttribute('aria-expanded','false');render();$('status').textContent=`已载入 ${items.length} 条。SN 在 ${items[0].column} 列（第 ${items[0].colIndex+1} 列），左右字段随每条同步更新。`;$('display').focus();if(window.innerWidth<721)$('stage').scrollIntoView({behavior:'smooth',block:'start'});}
+
+function renderBarcode(sn,c=$('canvas')){
+ if(!/^[\x20-\x7e]{1,80}$/.test(sn))throw Error('Code 128 B 模式仅支持 1–80 个可打印英文 / 数字 / ASCII 符号。中文或超长内容请切换为二维码或纯文字。');
+ let codes=[104],check=104;for(let i=0;i<sn.length;i++){let v=sn.charCodeAt(i)-32;codes.push(v);check+=v*(i+1);}codes.push(check%103,106);
+ let widths=codes.map(v=>CODE128_PATTERNS[v]).join(''),modules=0;for(const w of widths)modules+=Number(w);
+ const unit=3,quiet=14*unit,w=(modules+28)*unit,h=272;c.width=w;c.height=h;const ctx=c.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,w,h);ctx.fillStyle='#000';let x=quiet,black=true;
+ for(const a of widths){let wide=Number(a)*unit;if(black)ctx.fillRect(x,24,wide,180);x+=wide;black=!black;}
+ let fs=26;ctx.font=`${fs}px monospace`;while(ctx.measureText(sn).width>w-2*quiet&&fs>10)ctx.font=`${--fs}px monospace`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(sn,w/2,237);c.className='barcode';
+}
+function wrapCanvasText(ctx,str,width){let lines=[],line='';for(const ch of str){if(line&&ctx.measureText(line+ch).width>width){lines.push(line);line=ch;}else line+=ch;}if(line)lines.push(line);return lines;}
+function renderQR(sn){const qr=new LocalQR(-1,LocalQREcc.M);qr.addData(sn);qr.make();const n=qr.getModuleCount(),unit=Math.max(4,Math.floor(540/(n+8))),margin=unit*4,side=(n+8)*unit;const c=$('canvas');let temp=document.createElement('canvas').getContext('2d');temp.font='22px monospace';let lines=wrapCanvasText(temp,sn,side-32);const h=side+24+lines.length*29;c.width=side;c.height=h;const ctx=c.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,side,h);ctx.fillStyle='#000';for(let r=0;r<n;r++)for(let col=0;col<n;col++)if(qr.isDark(r,col))ctx.fillRect(margin+col*unit,margin+r*unit,unit,unit);ctx.font='22px monospace';ctx.textAlign='center';ctx.textBaseline='top';lines.forEach((line,i)=>ctx.fillText(line,side/2,side+6+i*29));c.className='qr';}
+function renderText(sn){const c=$('canvas'),ctx=c.getContext('2d');c.width=1400;ctx.font='52px monospace';let lines=wrapCanvasText(ctx,sn,1260);c.height=Math.max(320,100+lines.length*78);ctx.fillStyle='#fff';ctx.fillRect(0,0,c.width,c.height);ctx.fillStyle='#000';ctx.font='52px monospace';ctx.textAlign='center';ctx.textBaseline='middle';const y=(c.height-lines.length*78)/2+39;lines.forEach((s,i)=>ctx.fillText(s,c.width/2,y+i*78));c.className='text';}
+let neighborColumns={left:null,right:null};
+function neighborColumn(record,side){return neighborColumns[side]??(record.colIndex+(side==='left'?-1:1));}
+function nextNeighborColumn(record,side,delta){
+ const current=neighborColumn(record,side);let next=current+delta;
+ if(next===record.colIndex)next+=delta;
+ return next>=0&&next<record.maxCols?next:current;
+}
+function syncNeighborSelect(record,side){
+ const select=$(side+'ColumnSelect');select.disabled=busy||!record||record.maxCols<=1;
+ if(!record)return;
+ if(select.columnHeaders!==record.headers||select.columnCount!==record.maxCols||select.snColumn!==record.colIndex){
+  select.replaceChildren(new Option('选择列',''));
+  for(let c=0;c<record.maxCols;c++)if(c!==record.colIndex)select.add(new Option(colName(c)+' · '+(txt(record.headers[c]?.v).trim()||'无表头'),String(c)));
+  select.columnHeaders=record.headers;select.columnCount=record.maxCols;select.snColumn=record.colIndex;
+ }
+ const col=neighborColumn(record,side);select.value=col>=0&&col<record.maxCols?String(col):'';
+ select.title=col>=0&&col<record.maxCols?colName(col)+' · '+(txt(record.headers[col]?.v).trim()||'无表头'):'选择表头定位列';
+}
+function selectNeighborColumn(side,col){
+ if(busy||!items.length||col==='')return;
+ const record=items[index],next=Number(col);
+ if(!Number.isInteger(next)||next<0||next>=record.maxCols||next===record.colIndex||next===neighborColumn(record,side))return;
+ neighborColumns[side]=next;delete neighborChanges[side];renderRowContext(record);
+}
+function syncNeighborArrows(record){
+ for(const side of ['left','right'])syncNeighborSelect(record,side);
+ for(const side of ['left','right'])for(const [suffix,delta] of [['Prev',-1],['Next',1]]){
+  $(side+suffix+'Column').disabled=busy||!record||nextNeighborColumn(record,side,delta)===neighborColumn(record,side);
+ }
+}
+function shiftNeighborColumn(side,delta){
+ if(busy||!items.length)return;
+ const record=items[index],next=nextNeighborColumn(record,side,delta);
+ if(next===neighborColumn(record,side))return;
+ selectNeighborColumn(side,next);
+}
+let neighborLocked={left:false,right:false},lastNeighborRecord=null;
+let neighborChanges={};
+function showNeighborChanges(){
+ const messages=[];
+ for(const side of ['left','right'])if($(side+'Notify').checked&&neighborChanges[side])messages.push(neighborChanges[side]);
+ $('neighborAlert').textContent=messages.join('\n');$('neighborAlert').hidden=!messages.length;
+}
+function syncNeighborRow(record){
+ if(lastNeighborRecord&&!items.includes(lastNeighborRecord))neighborColumns={left:null,right:null};
+ syncNeighborArrows(record);
+ for(const side of ['left','right']){
+  const col=neighborColumn(record,side),info=cellInfo(record,col),header=txt(record.headers[col]?.v).trim();
+  $(side+'NotifyLabel').textContent='改变'+(header?'【'+header+'】':'')+'时通知我';
+  $(side+'Notify').disabled=!info.exists;
+ }
+ if(record!==lastNeighborRecord){
+  neighborChanges={};
+  if(lastNeighborRecord&&items.includes(lastNeighborRecord))for(const side of ['left','right']){
+   const col=neighborColumn(record,side),oldCol=neighborColumn(lastNeighborRecord,side);
+   const now=cellInfo(record,col),old=cellInfo(lastNeighborRecord,oldCol);
+   if(now.exists&&old.exists&&txt(record.cells[col]?.v)!==txt(lastNeighborRecord.cells[oldCol]?.v)){
+    const header=txt(record.headers[col]?.v).trim(),name=header?'【'+header+'】':(side==='left'?'左侧列':'右侧列');
+    neighborChanges[side]=name+'发生变化（'+old.value+' → '+now.value+'）';
+   }
+  }
+ }
+ showNeighborChanges();
+ for(const side of ['left','right'])if(record!==lastNeighborRecord&&!neighborLocked[side])$(side+'Codes').checked=false;
+ lastNeighborRecord=record;
+}
+function renderNeighborBarcode(record,col,side){
+ const wrap=$(side+'BarcodeWrap'),canvas=$(side+'Barcode'),hint=$(side+'BarcodeHint');
+ wrap.hidden=true;hint.hidden=true;hint.textContent='';canvas.width=0;canvas.height=0;canvas.removeAttribute('aria-label');
+ if(!$(side+'Codes').checked)return;
+ const info=cellInfo(record,col),cell=record.cells[col];
+ if(!info.exists||info.empty)return;
+ const value=txt(cell?.v);
+ if(cell?.type==='error'){hint.textContent='单元格错误，无法出码';hint.hidden=false;return;}
+ if(!/^[\x20-\x7e]{1,80}$/.test(value)){hint.textContent='仅支持 1–80 位英文、数字或符号';hint.hidden=false;return;}
+ renderBarcode(value,canvas);canvas.setAttribute('aria-label',`${side==='left'?'左侧':'右侧'}条形码：${value}`);wrap.hidden=false;
+}
+
+function renderContextCard(record,col,side){
+ const info=cellInfo(record,col);$(side+'Position').textContent=info.exists?`${side==='left'?'左侧':'右侧'} · ${colName(col)} 列（第 ${col+1} 列）`:side==='left'?'没有左侧列':'没有右侧列';
+ $(side+'Header').textContent=info.label;$(side+'Value').textContent=info.value;$(side+'Value').classList.toggle('empty-value',info.empty);
+ $(side+'Note').textContent=info.note;$(side+'Note').hidden=!info.note;renderNeighborBarcode(record,col,side);
+}
+function renderRowContext(record){syncNeighborRow(record);
+ renderContextCard(record,neighborColumn(record,'left'),'left');renderContextCard(record,neighborColumn(record,'right'),'right');
+ $('snPosition').textContent=`SN · ${record.column} 列（第 ${record.colIndex+1} 列）`;$('snHeader').textContent=cellInfo(record,record.colIndex).label;
+ $('allRowSummary').textContent=`查看同一行全部 ${record.maxCols} 列（含 SN 左右所有字段）`;
+ const tbody=$('allRowBody');tbody.replaceChildren();
+ for(let c=0;c<record.maxCols;c++){
+  const info=cellInfo(record,c),tr=document.createElement('tr');if(c===record.colIndex)tr.className='selected-col';
+  const pos=document.createElement('td'),name=document.createElement('td'),value=document.createElement('td');
+  pos.textContent=`${colName(c)}${record.row}`;name.textContent=info.label+(c===record.colIndex?' · 当前 SN':'');value.textContent=info.value;
+  if(info.note){const note=document.createElement('div');note.className='cell-note';note.textContent=info.note;value.append(note);}tr.append(pos,name,value);tbody.append(tr);
+ }
+}
+function syncButtons(){syncNeighborArrows(items[index]);
+ const has=!!items.length;$('prev').disabled=busy||!has||index===0;$('next').disabled=busy||!has||index>=items.length-1;$('save').disabled=busy||!has||!renderOK;$('saveNext').disabled=busy||!has||!renderOK||index>=items.length-1;$('jump').disabled=busy||!has;$('format').disabled=busy;
+ $('next').title=has&&index===items.length-1?'已到最后一条':'下一张 · 空格 / →';
+ for(const id of ['pickFile','file','loadPaste','demo','paste','ackNumeric'])$(id).disabled=busy;
+ setMappingLock();
+ for(const button of $('detectionChoices').querySelectorAll('button'))button.disabled=busy;
+}
+function render(){
+ renderOK=false;const has=!!items.length;if(!has){neighborColumns={left:null,right:null};lastNeighborRecord=null;neighborChanges={};showNeighborChanges();}$('empty').hidden=has;$('imageWrap').hidden=!has;$('currentSN').hidden=!has;$('rowContext').hidden=!has;$('allRowDetails').hidden=!has;$('sourceLine').hidden=!has;$('contextControls').hidden=!has;$('currentWarning').hidden=true;showMessage('renderError','');
+ $('currentNo').textContent=has?String(index+1):'—';$('totalNo').textContent=String(items.length);$('progressBar').style.width=has?((index+1)/items.length*100)+'%':'0';$('jumpNo').max=String(items.length||1);$('jumpNo').value=String(has?index+1:1);
+ if(has){
+  const r=items[index];$('currentSN').textContent=r.sn;$('sourceLine').textContent=`${r.source} · ${r.column}${r.row} · 原文 ${r.sn.length} 个字符`;$('currentWarning').textContent=r.warnings.join('；');$('currentWarning').hidden=!r.warnings.length;renderRowContext(r);
+  try{const fmt=$('format').value;if(fmt==='code128')renderBarcode(r.sn);else if(fmt==='qr')renderQR(r.sn);else renderText(r.sn);renderOK=true;}catch(e){$('imageWrap').hidden=true;showMessage('renderError',e.message||String(e),'error');}
+ }syncButtons();
+}
+function move(delta){if(busy||!items.length)return;const next=Math.max(0,Math.min(items.length-1,index+delta));if(next===index){$('status').textContent=delta>0?'已到最后一条；不会自动返回第一条。':'当前已经是第一条。';return;}index=next;render();$('status').textContent=`当前第 ${index+1} / ${items.length} 条 · 源表第 ${items[index].row} 行。${index===items.length-1?'已到最后一条。':''}`;}
+function jumpTo(){if(busy||!items.length)return;const n=Number($('jumpNo').value);if(!Number.isInteger(n)||n<1||n>items.length){$('status').textContent=`请输入 1–${items.length} 之间的序号。`;return;}index=n-1;render();$('status').textContent=`已跳转到第 ${n} 条 · 源表第 ${items[index].row} 行。`;$('display').focus();}
+async function savePNG(andNext){
+ if(busy||!renderOK||!items.length)return;busy=true;syncButtons();const record=items[index],position=index,fmt=$('format').value;
+ try{
+  const blob=await new Promise((resolve,reject)=>$('canvas').toBlob(b=>b?resolve(b):reject(Error('图片生成失败。')),'image/png'));
+  const safe=record.sn.replace(/[<>:"/\\|?*\x00-\x1f]/g,'_').slice(0,100).replace(/[. ]+$/g,'')||'SN';const file=String(position+1).padStart(4,'0')+'_'+safe+'_'+fmt+'.png';
+  const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=file;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);$('status').textContent='已发起 PNG 保存（只含 SN，不含左右字段）；保存结果以浏览器为准。';
+  if(andNext&&index<items.length-1){index++;render();$('status').textContent=`已发起保存并切到第 ${index+1} 条，左右字段已同步。请检查浏览器下载结果。`;}
+ }catch(e){$('status').textContent='保存失败：'+(e.message||e);}finally{busy=false;syncButtons();}
+}
+function toggleFocus(force){document.body.classList.toggle('focus',force??!document.body.classList.contains('focus'));$('focus').setAttribute('aria-pressed',String(document.body.classList.contains('focus')));$('focus').title=document.body.classList.contains('focus')?'退出大屏 · Esc':'大屏模式';$('display').focus();}
+for(const side of ['left','right'])$(side+'Codes').onchange=()=>{if(items.length)renderRowContext(items[index]);};
+$('pickFile').onclick=()=>$('file').click();$('file').onchange=e=>{const f=e.target.files[0];loadFile(f);e.target.value='';};$('loadPaste').onclick=()=>loadPaste(false);$('demo').onclick=()=>loadPaste(true);
+$('sheet').onchange=()=>{if(busy)return;resetViewer();$('ackNumeric').checked=false;chooseSheet();};$('autoDetect').onclick=autoDetectSN;
+$('column').onchange=()=>{$('columnNumber').value=$('column').value===''?'':String(Number($('column').value)+1);mappingChanged(true);};
+$('columnNumber').oninput=()=>{const n=Number($('columnNumber').value);$('column').value=Number.isInteger(n)&&n>=1&&n<=sourceMaxCols?String(n-1):'';mappingChanged(true);};
+$('startRow').oninput=()=>mappingChanged();$('headerRow').oninput=()=>mappingChanged();$('ackNumeric').onchange=updatePreview;$('apply').onclick=applyData;
+$('prev').onclick=()=>{move(-1);$('display').focus();};$('next').onclick=()=>{move(1);$('display').focus();};$('format').onchange=render;
+$('save').onclick=()=>savePNG(false);$('saveNext').onclick=()=>savePNG(true);$('jump').onclick=jumpTo;$('jumpNo').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();jumpTo();}};$('focus').onclick=()=>toggleFocus();
+window.addEventListener('keydown',e=>{if(e.key==='Escape'){toggleFocus(false);return;}if(e.defaultPrevented||e.repeat||e.ctrlKey||e.metaKey||e.altKey||e.isComposing||e.target.closest('input,textarea,select,button,summary,[contenteditable="true"]'))return;if([' ','ArrowRight','PageDown'].includes(e.key)){e.preventDefault();move(1);}else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();move(-1);}});
+window.addEventListener('beforeunload',e=>{if(items.length&&!items[0].source.startsWith('演示')){e.preventDefault();e.returnValue='';}});
+render();
+
+
+</script>
+<!--
+THIRD-PARTY NOTICES
+
+QR Code engine
+Based on QRCode for JavaScript by Kazuhiko Arase (2009), as vendored in qrcode-terminal.
+Original source: https://github.com/gtanner/qrcode-terminal/tree/master/vendor/QRCode
+Local changes: browser CommonJS wrapper; QR8bitByte uses UTF-8 TextEncoder instead of truncated char codes.
+
+Copyright (c) 2009 Kazuhiko Arase
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+Code 128 standard symbol-width lookup table
+Values extracted from reportlab.graphics.barcode.code128; encoding and canvas renderer are new.
+
+#####################################################################################
+#
+#	Copyright (c) 2000-2024, ReportLab Inc.
+#	All rights reserved.
+#
+#	Redistribution and use in source and binary forms, with or without modification,
+#	are permitted provided that the following conditions are met:
+#
+#		*	Redistributions of source code must retain the above copyright notice,
+#			this list of conditions and the following disclaimer. 
+#		*	Redistributions in binary form must reproduce the above copyright notice,
+#			this list of conditions and the following disclaimer in the documentation
+#			and/or other materials provided with the distribution. 
+#		*	Neither the name of the company nor the names of its contributors may be
+#			used to endorse or promote products derived from this software without
+#			specific prior written permission. 
+#
+#	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+#	ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+#	WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+#	IN NO EVENT SHALL THE OFFICERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+#	INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+#	TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+#	OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
+#	IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+#	IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+#	SUCH DAMAGE.
+#
+#####################################################################################
+
+-->
+<script>
+(() => {
+ const paths={upload:'M12 16V3m-5 5 5-5 5 5M4 15v6h16v-6',left:'m14 6-6 6 6 6',right:'m10 6 6 6-6 6',download:'M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5',saveNext:'M8 3v11m-4-4 4 4 4-4M3 18v3h10m3-12 4 4-4 4m-3-4h7',expand:'M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5',settings:'M4 6h16M4 12h16M4 18h16M8 3v6m8 0v6m-8 0v6',help:'M9 8a3 3 0 1 1 5 2c-2 1-2 2-2 4m0 3h.01',detect:'M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5M8 12h8m-4-4v8',play:'m9 5 10 7-10 7Z'};
+ function icon(id,key,label,text=''){const e=document.getElementById(id);e.innerHTML='<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="'+paths[key]+'"/></svg>'+(text?'<span>'+text+'</span>':'');e.title=label;e.setAttribute('aria-label',label);}
+ icon('pickFile','upload','选择 Excel 或文本文件','选择文件');icon('emptyImport','upload','选择 Excel 或文本文件','选择文件');icon('autoDetect','detect','重新识别 SN 列','自动识别');icon('apply','play','确认预览并开始显示','开始');
+ icon('prev','left','上一张 · ←');icon('next','right','下一张 · 空格 / →');icon('save','download','保存 PNG');icon('saveNext','saveNext','保存并下一张');icon('focus','expand','大屏模式');icon('jump','right','跳转');icon('settings','settings','导入与设置');icon('help','help','使用说明');
+ document.getElementById('emptyImport').onclick=()=>document.getElementById('file').click();
+ document.getElementById('settings').onclick=()=>{document.body.classList.remove('focus');const collapsed=document.body.classList.toggle('viewing');document.getElementById('settings').setAttribute('aria-expanded',String(!collapsed));if(!collapsed)document.getElementById('sidebar').scrollIntoView({block:'start'});};
+ document.getElementById('help').onclick=()=>{document.body.classList.remove('viewing','focus');document.getElementById('settings').setAttribute('aria-expanded','true');const d=document.getElementById('helpDetails');d.open=!d.open;if(d.open)d.scrollIntoView({block:'nearest'});};
+})();
+
+for(const side of ['left','right'])$(side+'Lock').onclick=()=>{
+ const locked=neighborLocked[side]=!neighborLocked[side],label=side==='left'?'左侧':'右侧';
+ const button=$(side+'Lock');button.setAttribute('aria-pressed',String(locked));
+ button.title=locked?'已锁定：切换行时保留':'锁定：切换行时保留';
+ button.setAttribute('aria-label',(locked?'解锁':'锁定')+label+'列条形码');
+ button.querySelector('path').setAttribute('d',locked?'M8 10V7a4 4 0 0 1 8 0v3M6 10h12v11H6z':'M8 10V7a4 4 0 0 1 8 0M6 10h12v11H6z');
+};
+
+for(const side of ['left','right'])$(side+'Notify').onchange=()=>{delete neighborChanges[side];showNeighborChanges();};
+
+for(const side of ['left','right']){ $(side+'PrevColumn').onclick=()=>shiftNeighborColumn(side,-1);$(side+'NextColumn').onclick=()=>shiftNeighborColumn(side,1); }
+
+for(const side of ['left','right'])$(side+'ColumnSelect').onchange=e=>selectNeighborColumn(side,e.target.value);
+
+</script></body></html>

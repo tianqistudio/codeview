@@ -1,0 +1,23 @@
+# Only reviewed public files are tracked.
+/*
+!/.gitignore
+!/README.md
+!/source/
+/source/*
+!/source/SN_连续出码工具_v1.1.html
+!/tools/
+/tools/*
+!/tools/sn-viewer/
+/tools/sn-viewer/*
+!/tools/sn-viewer/refine.py
+!/tools/sn-viewer/theme.css
+!/tools/sn-viewer/ui.js
+!/tools/sn-viewer/neighbor.js
+!/tools/sn-viewer/sn-header.js
+!/tools/sn-viewer/sn-icon.svg
+!/交付/
+/交付/*
+!/交付/SN连续出码/
+/交付/SN连续出码/*
+!/交付/SN连续出码/SN_连续出码工具_v1.2.html
+!/交付/SN连续出码/SN-icon.svg
