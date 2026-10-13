@@ -44,3 +44,5 @@ button,input,select,textarea{border-color:var(--line);border-radius:9px;backgrou
 
 .context-heading{flex-wrap:wrap}.column-arrows{margin-left:auto;align-items:center;min-width:0;max-width:100%}
 .column-select{width:112px;max-width:calc(100% - 52px);min-width:0;height:26px;padding:2px 5px;font-size:11px;border-radius:5px;text-overflow:ellipsis}
+
+#language{width:auto;max-width:140px;min-height:34px;padding:5px 8px;font-size:12px}.top-actions{flex-wrap:wrap}html[lang="en"] .top{flex-wrap:wrap;gap:12px}html[lang="en"] .neighbor-toggle{white-space:normal}html[lang="en"] .mapping-cols,html[lang="en"] .grid2{min-width:0}

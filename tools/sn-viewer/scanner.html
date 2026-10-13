@@ -1,0 +1,8 @@
+<nav class="scan-tabs" aria-label="工具"><button id="tableMode" aria-pressed="true">清单出码</button><button id="scanMode" aria-pressed="false">图片识码</button></nav>
+<section id="scanner" class="scan-panel card" hidden aria-label="图片识码">
+  <div class="row wrap"><button id="scanPick" class="primary">选择图片</button><button id="scanCancel" hidden>取消</button><button id="scanClear">清空</button><input id="scanFiles" type="file" accept="image/png,image/jpeg,image/webp,image/bmp" multiple hidden></div>
+  <p class="small muted">可多选图片，或在此页粘贴、拖入图片。识别后按原码制生成 PNG。</p>
+  <p id="scanStatus" role="status" aria-live="polite">等待图片</p>
+  <div id="scanResults" class="scan-results"></div>
+  <details><summary>识别与保存说明</summary><p>支持常见二维码及 Code 128、Code 39、EAN、UPC 等条形码。模糊、遮挡或过小的码可能漏识别，请核对数量与内容。重复标签分别保留。每张图片最多识别 255 个码；大图建议分批裁剪。</p><p>文件名使用码内文本，非法字符替换为下划线，过长名称截短，重名追加序号；编码内容保持原样。图片仅在本机处理。单张图片上限 50 MB、2400 万像素。</p></details>
+</section>

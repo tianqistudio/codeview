@@ -21,3 +21,15 @@ for(const side of ['left','right'])$(side+'Notify').onchange=()=>{delete neighbo
 for(const side of ['left','right']){ $(side+'PrevColumn').onclick=()=>shiftNeighborColumn(side,-1);$(side+'NextColumn').onclick=()=>shiftNeighborColumn(side,1); }
 
 for(const side of ['left','right'])$(side+'ColumnSelect').onchange=e=>selectNeighborColumn(side,e.target.value);
+
+function refreshCodeViewLanguage(){
+ // Re-render labels from the same source records without resetting progress or locks.
+ for(const side of ['left','right'])$(side+'ColumnSelect').columnHeaders=null;
+ if(mappingReady){refreshColumnLabels();updatePreview();}
+ if(items.length){
+  const gathered=gather();
+  const byRow=new Map(gathered.out.map(record=>[record.row,record]));
+  for(const record of items){const current=byRow.get(record.row);if(current)record.warnings=current.warnings;}
+ }
+ render();
+}

@@ -38,7 +38,7 @@ let neighborLocked={left:false,right:false},lastNeighborRecord=null;
 let neighborChanges={};
 function showNeighborChanges(){
  const messages=[];
- for(const side of ['left','right'])if($(side+'Notify').checked&&neighborChanges[side])messages.push(neighborChanges[side]);
+ for(const side of ['left','right'])if($(side+'Notify').checked&&neighborChanges[side])messages.push(neighborChanges[side]());
  $('neighborAlert').textContent=messages.join('\n');$('neighborAlert').hidden=!messages.length;
 }
 function syncNeighborRow(record){
@@ -56,7 +56,7 @@ function syncNeighborRow(record){
    const now=cellInfo(record,col),old=cellInfo(lastNeighborRecord,oldCol);
    if(now.exists&&old.exists&&txt(record.cells[col]?.v)!==txt(lastNeighborRecord.cells[oldCol]?.v)){
     const header=txt(record.headers[col]?.v).trim(),name=header?'【'+header+'】':(side==='left'?'左侧列':'右侧列');
-    neighborChanges[side]=name+'发生变化（'+old.value+' → '+now.value+'）';
+    neighborChanges[side]=()=>name+'发生变化（'+old.value+' → '+now.value+'）';
    }
   }
  }

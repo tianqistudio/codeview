@@ -1,0 +1,14 @@
+{
+  "package": "zxing-wasm",
+  "version": "3.1.4",
+  "source": "https://cdn.jsdelivr.net/npm/zxing-wasm@3.1.4/",
+  "files": {
+    "zxing.js": "ba31d78ff926adb2c028bde46d73ce613ed6e08148e91648874f225290b179c1",
+    "zxing_full.wasm": "5721ed87da5d582b7a65a69ea4bed7852699e7c4a1cf5a77d6ef9376152d96a5"
+  },
+  "licenses": {
+    "ZXING-LICENSE.txt": "https://cdn.jsdelivr.net/npm/zxing-wasm@3.1.4/LICENSE",
+    "ZXING-CPP-LICENSE.txt": "https://raw.githubusercontent.com/zxing-cpp/zxing-cpp/master/LICENSE",
+    "ZINT-LICENSE.txt": "https://raw.githubusercontent.com/zint/zint/master/backend/library.c (license header)"
+  }
+}

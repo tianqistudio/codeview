@@ -1,6 +1,7 @@
 from pathlib import Path
 import re
 import base64
+from localize import localize
 
 ROOT = Path(__file__).resolve().parents[2]
 source = ROOT / 'source/SN_连续出码工具_v1.1.html'
@@ -79,7 +80,25 @@ html = html.replace("renderContextCard(record,record.colIndex-1,'left');renderCo
 html = html.replace('if(!has){lastNeighborRecord=null;', 'if(!has){neighborColumns={left:null,right:null};lastNeighborRecord=null;', 1)
 html = html.replace('function syncButtons(){', 'function syncButtons(){syncNeighborArrows(items[index]);', 1)
 html = html.replace('</body>', '<script>\n'+ui+'\n</script></body>')
-output = ROOT / '交付/SN连续出码/SN_连续出码工具_v1.2.html'
+html = html.replace('SN 连续出码 · Lite', '码映 CodeView · 识码与出码')
+html = html.replace('SN 连续出码 <span', '码映 CodeView <span')
+scanner_dir = Path(__file__).parent
+scanner_css = (scanner_dir / 'scanner.css').read_text(encoding='utf-8')
+scanner_html = (scanner_dir / 'scanner.html').read_text(encoding='utf-8')
+scanner_js = (scanner_dir / 'scanner.js').read_text(encoding='utf-8')
+worker = (scanner_dir / 'vendor/zxing.js').read_text(encoding='utf-8') + '\n' + (scanner_dir / 'scanner-worker.js').read_text(encoding='utf-8')
+wasm = base64.b64encode((scanner_dir / 'vendor/zxing_full.wasm').read_bytes()).decode('ascii')
+license_text = '\n\n'.join((scanner_dir / ('vendor/' + name)).read_text(encoding='utf-8') for name in ('ZXING-LICENSE.txt', 'ZXING-CPP-LICENSE.txt', 'ZINT-LICENSE.txt'))
+html = html.replace("script-src 'unsafe-inline';", "script-src 'unsafe-inline' 'wasm-unsafe-eval'; worker-src blob:;")
+html = html.replace('</style>', scanner_css + '\n</style>', 1)
+html = html.replace('<main class="layout">', scanner_html + '\n<main class="layout">', 1)
+html = html.replace('</body>', '<!-- ZXing WASM 3.1.4\n' + license_text.replace('--', '—') + '\n-->\n<script id="scannerWorker" type="text/plain">' + base64.b64encode(worker.encode()).decode('ascii') + '</script><script id="scannerWasm" type="text/plain">' + wasm + '</script><script>\n' + scanner_js + '\n</script></body>')
+# Defer nested UI fragments so both translations are evaluated in their own locale.
+html = html.replace('const loc=`${colName(choice.col)}', 'const loc=()=>`${colName(choice.col)}')
+html = html.replace('const detail=choice.header?', 'const detail=()=>choice.header?')
+html = html.replace('${loc}', '${loc()}').replace('${detail}', '${detail()}')
+html = localize(html)
+output = ROOT / '交付/SN连续出码/SN_连续出码工具_v1.4.html'
 output.write_text(html, encoding='utf-8')
 (output.parent / 'SN-icon.svg').write_bytes(icon)
 print(output)
