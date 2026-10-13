@@ -39,3 +39,5 @@ python tools/sn-viewer/refine.py
 ## 第三方许可
 
 内嵌第三方代码的版权与许可说明保留在 HTML 中。
+
+由 [tianqistudio](https://tianqistudio.com/home) 制作。
