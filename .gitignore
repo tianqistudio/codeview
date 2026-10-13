@@ -1,6 +1,7 @@
 # Only reviewed public files are tracked.
 /*
 !/.gitignore
+!/.editorconfig
 !/README.md
 !/source/
 /source/*
