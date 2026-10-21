@@ -1,9 +1,28 @@
 from pathlib import Path
+import argparse
+import json
 import re
 import base64
 from localize import localize
 
 ROOT = Path(__file__).resolve().parents[2]
+arguments = argparse.ArgumentParser(description='Build a standalone CodeView candidate.')
+arguments.add_argument('--output', type=Path,
+                       default=Path('交付/SN连续出码/SN_连续出码工具_v1.4.1-candidate.html'),
+                       help='Candidate HTML path, relative to the project root or absolute.')
+options = arguments.parse_args()
+output = (ROOT / options.output).resolve()
+# Local release metadata is intentionally excluded from public Git checkouts.
+protected_outputs = {(ROOT / f'交付/SN连续出码/SN_连续出码工具_v{version}.html').resolve()
+                     for version in ('1.4', '1.4.1')}
+release_path = ROOT / 'release.json'
+if release_path.exists():
+    release = json.loads(release_path.read_text(encoding='utf-8-sig'))
+    protected_outputs.add((ROOT / release['html']).resolve())
+if output in protected_outputs or (ROOT / 'source').resolve() in output.parents:
+    arguments.error('The deployed HTML and preserved source baseline cannot be overwritten.')
+if output.suffix.lower() != '.html':
+    arguments.error('--output must name an HTML file.')
 source = ROOT / 'source/SN_连续出码工具_v1.1.html'
 html = source.read_text(encoding='utf-8-sig')
 css = (Path(__file__).parent / 'theme.css').read_text(encoding='utf-8')
@@ -19,6 +38,11 @@ html = html.replace('class="version-pill">1.1', 'class="version-pill">Lite')
 html = html.replace('<span class="badge">● 本地处理 · 无网络请求</span>', '<div class="top-actions"><button id="settings" title="导入与设置" aria-label="导入与设置" aria-expanded="true"></button><button id="help" title="使用说明" aria-label="使用说明"></button></div>')
 html = html.replace('<div class="or">或粘贴内容</div>', '<details id="pastePanel"><summary>粘贴表格</summary>')
 html = html.replace('<div id="importMessage"', '</details><div id="importMessage"', 1)
+import_controls = ('<div id="importActivity" class="import-activity" hidden>'
+                   '<div class="import-stage"><span id="importPhase" role="status" aria-live="polite"></span>'
+                   '<progress id="importProgress" max="1" value="0" aria-label="读取清单"></progress></div>'
+                   '<button id="importCancel" type="button" title="取消导入" aria-label="取消导入">取消</button></div>')
+html = html.replace('<div id="importMessage"', import_controls + '<div id="importMessage"', 1)
 html = html.replace('<details><summary>数据、识别与扫码注意事项</summary>', '<details id="helpDetails"><summary>使用说明</summary>')
 html = html.replace('导入 SN 清单', '导入').replace('01 / SOURCE', '01').replace('定位 SN 与核对范围', '确认 SN 列').replace('02 / MAP', '02')
 html = html.replace('选择 Excel / 文本文件', '选择文件').replace('读取粘贴内容', '读取').replace('试用示例', '示例')
@@ -79,6 +103,24 @@ for side in ('left','right'):
 html = html.replace("renderContextCard(record,record.colIndex-1,'left');renderContextCard(record,record.colIndex+1,'right');", "renderContextCard(record,neighborColumn(record,'left'),'left');renderContextCard(record,neighborColumn(record,'right'),'right');", 1)
 html = html.replace('if(!has){lastNeighborRecord=null;', 'if(!has){neighborColumns={left:null,right:null};lastNeighborRecord=null;', 1)
 html = html.replace('function syncButtons(){', 'function syncButtons(){syncNeighborArrows(items[index]);', 1)
+# Replace only the live import paths; the original source remains immutable.
+import_dir = Path(__file__).parent
+import_core = (import_dir / 'import-core.js').read_text(encoding='utf-8')
+import_ui = (import_dir / 'import-ui.js').read_text(encoding='utf-8')
+import_css = (import_dir / 'import.css').read_text(encoding='utf-8')
+html = html.replace('</head>', '<script id="tableImportCore">\n' + import_core + '\n</script></head>', 1)
+html = html.replace('</style>', import_css + '\n</style>', 1)
+html, replaced = re.subn(r'async function chooseSheet\(\)\{.*?\n\}\n(?=function mappingChanged)',
+                         lambda _: import_ui + '\n', html, count=1, flags=re.S)
+assert replaced == 1, 'Expected one worksheet import implementation'
+html, replaced = re.subn(r'async function loadFile\(file\)\{.*?\n\}\n(?=async function loadPaste)',
+                         '', html, count=1, flags=re.S)
+assert replaced == 1, 'Expected one legacy file import implementation'
+paste_start = "if(busy)return;loadToken++;resetViewer();"
+assert html.count(paste_start) == 1
+html = html.replace(paste_start, "if(busy)return;cancelTableImport(false);loadToken++;resetViewer();", 1)
+html = html.replace("await chooseSheet();if(sample&&source?.name.startsWith('演示')&&!$('apply').disabled)applyData();",
+                    "const pastedSource=source;await chooseSheet();if(sample&&source===pastedSource&&mappingReady&&!$('apply').disabled)applyData();", 1)
 html = html.replace('</body>', '<script>\n'+ui+'\n</script></body>')
 html = html.replace('SN 连续出码 · Lite', '码映 CodeView · 识码与出码')
 html = html.replace('SN 连续出码 <span', '码映 CodeView <span')
@@ -98,7 +140,8 @@ html = html.replace('const loc=`${colName(choice.col)}', 'const loc=()=>`${colNa
 html = html.replace('const detail=choice.header?', 'const detail=()=>choice.header?')
 html = html.replace('${loc}', '${loc()}').replace('${detail}', '${detail()}')
 html = localize(html)
-output = ROOT / '交付/SN连续出码/SN_连续出码工具_v1.4.html'
+output.parent.mkdir(parents=True, exist_ok=True)
 output.write_text(html, encoding='utf-8')
-(output.parent / 'SN-icon.svg').write_bytes(icon)
+if not (output.parent / 'SN-icon.svg').exists():
+    (output.parent / 'SN-icon.svg').write_bytes(icon)
 print(output)

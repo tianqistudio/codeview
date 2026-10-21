@@ -1,6 +1,7 @@
 # Only reviewed public files are tracked.
 /*
 !/.gitignore
+!/.gitattributes
 !/.editorconfig
 !/README.md
 !/source/
@@ -35,3 +36,13 @@
 !/tools/sn-viewer/i18n.js
 !/tools/sn-viewer/verify-i18n.cjs
 !/交付/SN连续出码/SN_连续出码工具_v1.4.html
+!/交付/SN连续出码/SN_连续出码工具_v1.4.1.html
+!/tools/sn-viewer/import-core.js
+!/tools/sn-viewer/import-ui.js
+!/tools/sn-viewer/test-html.cjs
+!/tools/sn-viewer/verify-headers.cjs
+!/tools/sn-viewer/verify-neighbors.cjs
+!/tools/sn-viewer/verify-import-browser.cjs
+!/tools/sn-viewer/import.css
+!/tools/sn-viewer/test-import-core.cjs
+!/tools/sn-viewer/test-build-output.py

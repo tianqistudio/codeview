@@ -19,13 +19,14 @@
 - 简体中文、英文界面；首次跟随浏览器语言，可随时切换并记住选择，切换时保留当前数据与进度。
 - 跟随系统浅色、深色主题；条码区域保持白底。
 - 导入数据在浏览器本地处理，不回写源表。
+- CSV、TXT、TSV 分块导入，显示读取进度，支持取消和重新选择文件。
 - 批量导入、拖入或粘贴图片，识别同图中的多个二维码和条形码，按原码制生成独立 PNG；每张图右下角可保存，以码内文本命名。
 
 <a id="使用"></a>
 
 ## 安装与使用
 
-1. 在线打开工具，或下载仓库中的 [单文件 HTML](./交付/SN连续出码/SN_连续出码工具_v1.4.html) 后用浏览器打开。
+1. 在线打开工具，或下载仓库中的 [v1.4.1 单文件 HTML](./交付/SN连续出码/SN_连续出码工具_v1.4.1.html) 后用浏览器打开。
 2. 导入 Excel、CSV、TXT、TSV，或粘贴表格内容。
 3. 核对工作表、SN 列与数据起始行，点击「开始」。
 4. 逐条切换条码，结合左右字段核对；需要时下载当前 SN 的 PNG 图片。
@@ -36,17 +37,33 @@
 
 ## 开发与测试
 
-构建需要 Python 3，以下命令在项目根目录运行；使用生成的网页不需要 Python 或 Node.js。
+构建需要 Python 3，核心测试需要 Node.js 18 或更新版本。以下命令在项目根目录运行；使用生成的网页不需要 Python 或 Node.js。
 
 ```sh
-python tools/sn-viewer/refine.py
+python -B tools/sn-viewer/refine.py --output "交付/SN连续出码/SN_连续出码工具_v1.4.1-candidate.html"
+node --test tools/sn-viewer/test-import-core.cjs
+python -B tools/sn-viewer/test-build-output.py
 ```
 
-生成文件位于 `交付/SN连续出码/SN_连续出码工具_v1.4.html`。`source/` 保存生成基线，`tools/sn-viewer/` 保存生成器、样式、图标和交互代码；修改后重新构建。
+生成器默认输出独立的 `v1.4.1-candidate.html`，也可用 `--output` 指定构建路径；正式交付文件和 `source/` 基线受保护。`tools/sn-viewer/` 保存生成器、样式、图标和交互代码；修改后重新构建。
+
+浏览器检查需要 Node.js、Playwright 和 Google Chrome：
+
+```sh
+node tools/sn-viewer/verify-headers.cjs
+node tools/sn-viewer/verify-neighbors.cjs
+node tools/sn-viewer/verify-import-browser.cjs
+node tools/sn-viewer/verify-i18n.cjs
+node tools/sn-viewer/verify-scanner.cjs
+```
 
 <a id="注意事项"></a>
 
 ## 使用边界
+
+清单上限为 10 MB、20,000 个源行、512 列和 10,000 条 SN。UTF-8 文本支持 BOM、带引号字段和字段内换行；作为 SN 的字段仍须通过原有内容校验。
+
+XLSX 显示工作簿、工作表和预览阶段，取消后忽略旧结果；同步 XML 解析期间需等待当前步骤结束才响应点击。分块读取仍保留完整表格供随机访问。
 
 Excel 中以数值保存的长编号可能已丢失精度，工具无法恢复原始数字。建议源表将 SN 保存为文本。切换页面不代表扫码成功，请确认上一条处理完成后再继续。
 

@@ -27,8 +27,8 @@ function syntheticWorkbook() {
 
 (async () => {
   const browser = await chromium.launch({channel:'chrome',headless:true});
-  const target = process.env.CODEVIEW_TEST_URL || pathToFileURL(path.resolve(__dirname,'../../交付/SN连续出码/SN_连续出码工具_v1.4.html')).href;
-  const evidence = path.resolve(__dirname,'../../qa/i18n-1.4');
+  const target = process.env.CODEVIEW_TEST_URL || pathToFileURL(require('./test-html.cjs').defaultHtmlPath()).href;
+  const evidence = path.resolve(process.env.CODEVIEW_EVIDENCE_DIR || path.join(__dirname,'../../qa/i18n-1.4.1'));
   fs.mkdirSync(evidence,{recursive:true});
   const page = await browser.newPage({locale:'en-US'});
   const errors = [], requests = [];

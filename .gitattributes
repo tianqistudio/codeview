@@ -1,0 +1,4 @@
+# Preserve the verified standalone release bytes on checkout and download.
+交付/SN连续出码/SN_连续出码工具_v1.4.1.html -text whitespace=-trailing-space
+# The generator embeds the SVG bytes as a data URI.
+tools/sn-viewer/sn-icon.svg text eol=lf

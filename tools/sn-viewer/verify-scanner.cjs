@@ -6,7 +6,7 @@ const {pathToFileURL}=require('url');
   const page=await browser.newPage({locale:'zh-CN'});const errors=[];
   const requests=[];page.on('request',r=>{if(/^https?:/.test(r.url()))requests.push(r.url());});
   page.on('pageerror',e=>errors.push(e.message));
-  const target=process.env.CODEVIEW_TEST_URL || pathToFileURL(path.resolve(__dirname,'../../交付/SN连续出码/SN_连续出码工具_v1.4.html')).href;
+  const target=process.env.CODEVIEW_TEST_URL || pathToFileURL(require('./test-html.cjs').defaultHtmlPath()).href;
   await page.goto(target);
   const fixture=await page.evaluate(async()=>{
     // Use existing independent encoders for the mixed-image input fixture.

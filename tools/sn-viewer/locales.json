@@ -1,5 +1,7 @@
 {
   "static": {
+    "读取清单": "Reading list",
+    "取消导入": "Cancel import",
     "离线工具": "Offline tool",
     "码映 CodeView": "CodeView",
     "导入": "Import",
