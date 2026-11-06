@@ -1,4 +1,15 @@
 (() => {
+ document.getElementById('backToImport').onclick = () => {
+   document.body.classList.remove('focus', 'viewing');
+   $('settings').setAttribute('aria-expanded', 'true');
+   $('pickFile').focus({preventScroll:true});
+   $('sidebar').scrollIntoView({block:'start'});
+ };
+ document.getElementById('clearPaste').onclick = () => {
+   const paste = document.getElementById('paste');
+   paste.value = '';
+   paste.focus();
+ };
  const paths={upload:'M12 16V3m-5 5 5-5 5 5M4 15v6h16v-6',left:'m14 6-6 6 6 6',right:'m10 6 6 6-6 6',download:'M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5',saveNext:'M8 3v11m-4-4 4 4 4-4M3 18v3h10m3-12 4 4-4 4m-3-4h7',expand:'M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5',settings:'M4 6h16M4 12h16M4 18h16M8 3v6m8 0v6m-8 0v6',help:'M9 8a3 3 0 1 1 5 2c-2 1-2 2-2 4m0 3h.01',detect:'M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5M8 12h8m-4-4v8',play:'m9 5 10 7-10 7Z'};
  function icon(id,key,label,text=''){const e=document.getElementById(id);e.innerHTML='<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="'+paths[key]+'"/></svg>'+(text?'<span>'+text+'</span>':'');e.title=label;e.setAttribute('aria-label',label);}
  icon('pickFile','upload','选择 Excel 或文本文件','选择文件');icon('emptyImport','upload','选择 Excel 或文本文件','选择文件');icon('autoDetect','detect','重新识别 SN 列','自动识别');icon('apply','play','确认预览并开始显示','开始');

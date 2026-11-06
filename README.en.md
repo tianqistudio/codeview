@@ -23,7 +23,7 @@ Previously named SNView. The former online URLs redirect to CodeView.
 
 ## Getting started
 
-1. Open the online tool, or download the [v1.4.1 single HTML file](./交付/SN连续出码/SN_连续出码工具_v1.4.1.html) and open it in a modern browser.
+1. Open the online tool, or download the [v1.4.6 single HTML file](./交付/SN连续出码/SN_连续出码工具_v1.4.6.html) and open it in a modern browser.
 2. Choose your interface language from the menu at the top right.
 3. Import a file or expand **Paste table** and paste your table.
 4. Check the sheet, SN column, header row, first data row and preview; select **Start**.

@@ -36,7 +36,9 @@ html = html.replace('SN 连续出码 v1.1 · 自动定位与同一行核对', 'S
 html = html.replace('SERIAL NUMBER · ROW-AWARE VIEWER', '离线工具')
 html = html.replace('class="version-pill">1.1', 'class="version-pill">Lite')
 html = html.replace('<span class="badge">● 本地处理 · 无网络请求</span>', '<div class="top-actions"><button id="settings" title="导入与设置" aria-label="导入与设置" aria-expanded="true"></button><button id="help" title="使用说明" aria-label="使用说明"></button></div>')
-html = html.replace('<div class="or">或粘贴内容</div>', '<details id="pastePanel"><summary>粘贴表格</summary>')
+html = html.replace('<div class="or">或粘贴内容</div>',
+                    '<details id="pastePanel"><summary>粘贴表格</summary>'
+                    '<button type="button" id="clearPaste">清空</button>')
 html = html.replace('<div id="importMessage"', '</details><div id="importMessage"', 1)
 import_controls = ('<div id="importActivity" class="import-activity" hidden>'
                    '<div class="import-stage"><span id="importPhase" role="status" aria-live="polite"></span>'
@@ -105,6 +107,15 @@ html = html.replace('if(!has){lastNeighborRecord=null;', 'if(!has){neighborColum
 html = html.replace('function syncButtons(){', 'function syncButtons(){syncNeighborArrows(items[index]);', 1)
 # Replace only the live import paths; the original source remains immutable.
 import_dir = Path(__file__).parent
+filters = (import_dir / 'row-filters.js').read_text(encoding='utf-8')
+html = html.replace('<div class="stage-head">', '<button id="backToImport" type="button" aria-controls="sidebar"><span aria-hidden="true">←</span> <span>返回导入</span></button><div class="stage-head">', 1)
+html = html.replace('<div class="progress" aria-hidden="true">', '<div id="stageFilter" hidden></div><div class="progress" aria-hidden="true">', 1)
+html = html.replace('<div class="preview" id="preview">', '<div id="rowFilterControls"></div><div class="preview" id="preview">', 1)
+html = html.replace('function gather(){', filters + '\nfunction gather(){\n filterTotal = 0;', 1)
+html = html.replace('  const warnings=[];if(val', '  filterTotal++;\n  if(!matchesRowFilters(sourceRows[r]))continue;\n  const warnings=[];if(val', 1)
+html, replaced = re.subn(r' if\(candidates.length\)\{\n  const table=.*?\n \}\n(?= const seen=)',
+                         ' renderFilterPreview(pre);\n', html, count=1, flags=re.S)
+assert replaced == 1
 import_core = (import_dir / 'import-core.js').read_text(encoding='utf-8')
 import_ui = (import_dir / 'import-ui.js').read_text(encoding='utf-8')
 import_css = (import_dir / 'import.css').read_text(encoding='utf-8')

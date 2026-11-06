@@ -46,3 +46,28 @@ button,input,select,textarea{border-color:var(--line);border-radius:9px;backgrou
 .column-select{width:112px;max-width:calc(100% - 52px);min-width:0;height:26px;padding:2px 5px;font-size:11px;border-radius:5px;text-overflow:ellipsis}
 
 #language{width:auto;max-width:140px;min-height:34px;padding:5px 8px;font-size:12px}.top-actions{flex-wrap:wrap}html[lang="en"] .top{flex-wrap:wrap;gap:12px}html[lang="en"] .neighbor-toggle{white-space:normal}html[lang="en"] .mapping-cols,html[lang="en"] .grid2{min-width:0}
+#pastePanel { position: relative; }
+#pastePanel > summary { padding-inline-end: 5em; min-height: 32px; line-height: 32px; }
+#clearPaste { position: absolute; inset-inline-end: 0; top: 14px; min-height: 32px; padding: 0 12px; }
+.filter-table { max-width: 100%; overflow-x: auto; }
+.filter-table th button { white-space: nowrap; }
+.filter-table .filter-active { color: var(--accent); border-color: currentColor; }
+.filter-editor { padding: 8px; }
+.filter-editor label { display: flex; gap: 8px; align-items: center; overflow-wrap: anywhere; }
+.filter-editor input[type=checkbox] { width: auto; }
+.filter-values { max-height: 180px; overflow-y: auto; }
+#rowFilterControls select { width: 100%; margin: 6px 0; font-weight: 600; }
+.filter-editor[popover] { position: fixed; inset: auto; margin: 0; width: min(280px, calc(100vw - 12px)); max-height: calc(100dvh - 12px); overflow: auto; box-sizing: border-box; background: var(--paper); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; box-shadow: 0 6px 22px #0004; }
+.filter-editor:popover-open { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.filter-editor:popover-open > :nth-child(-n+4) { grid-column: 1 / -1; }
+.filter-editor .filter-values { background: var(--soft); padding: 6px; }
+#stageFilter:not([hidden]) { display: flex; overflow-x: auto; gap: 0; margin: 8px 0; }
+#stageFilter > button { flex: none; white-space: nowrap; border-radius: 0; min-height: 32px; }
+#stageFilter .filter-active { border-color: var(--accent); color: var(--accent); }
+#preview .filter-table { display: block; padding: 0; }
+#preview .filter-table table { table-layout: auto; }
+#backToImport { display: none; }
+.viewing #backToImport, .focus #backToImport { display: inline-flex; margin-bottom: 12px; gap: 6px; }
+@media (min-width: 1400px) {
+  .viewing:not(.focus) #backToImport { position: fixed; right: calc(50% + 546px); top: 50%; transform: translateY(-50%); }
+}

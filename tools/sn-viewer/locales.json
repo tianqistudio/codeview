@@ -9,6 +9,8 @@
     "选择 Excel 或文本文件": "Choose Excel or text file",
     "不改写原文件 · 不运行宏或公式": "Original files unchanged · No macros or formula execution",
     "粘贴表格": "Paste table",
+    "筛选": "Filter",
+    "返回导入": "Back to import",
     "粘贴包含 SN 与左右字段的 Excel 表格": "Paste an Excel table containing SN and adjacent fields",
     "读取": "Read",
     "示例": "Example",

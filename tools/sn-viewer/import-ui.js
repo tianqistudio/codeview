@@ -112,6 +112,10 @@ async function loadFile(file) {
 
 async function chooseSheet(existingTask = null) {
   if (!source) return;
+  rowFilters.clear();
+  $('stageFilter').hidden = true;
+  $('rowFilterControls').replaceChildren();
+  $('preview').replaceChildren();
   const task = existingTask || tableImportGate.start();
   const token = ++loadToken, localSource = source, sheetIndex = Number($('sheet').value);
   const current = () => tableImportGate.isCurrent(task) && token === loadToken;
