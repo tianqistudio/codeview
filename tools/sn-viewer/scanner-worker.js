@@ -6,7 +6,21 @@ self.onmessage = async ({data}) => {
     }
     await ready;
     const results = await ZXingWASM.readBarcodes(data.image, {tryHarder:true,tryRotate:true,tryInvert:true,maxNumberOfSymbols:255,textMode:'Plain'});
-    results.sort((a,b)=>a.position.topLeft.y-b.position.topLeft.y || a.position.topLeft.x-b.position.topLeft.x);
+    // Treat slightly misaligned labels as one row before ordering left to right.
+    const located = results.map(result => {
+      const corners = Object.values(result.position);
+      const top = Math.min(...corners.map(point => point.y));
+      return {result, top, left:Math.min(...corners.map(point => point.x)),
+        height:Math.max(...corners.map(point => point.y)) - top};
+    }).sort((a,b)=>a.top-b.top || a.left-b.left);
+    const rows = [];
+    for (const item of located) {
+      const row = rows[rows.length-1];
+      if (row && item.top-row.top <= Math.max(4, Math.min(row.height,item.height)*0.3)) {
+        row.items.push(item); row.height=Math.min(row.height,item.height);
+      } else rows.push({top:item.top,height:item.height,items:[item]});
+    }
+    results.splice(0,results.length,...rows.flatMap(row=>row.items.sort((a,b)=>a.left-b.left || a.top-b.top).map(item=>item.result)));
     for (const result of results) {
       let image = null, error = '';
       try {

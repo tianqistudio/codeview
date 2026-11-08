@@ -3,6 +3,34 @@
   const el = id => document.getElementById(id);
   let worker, busy = false, generation = 0, cancelPending;
   const urls = new Set(), names = new Set();
+  function refreshFilters() {
+    const position = el('scanFilterPosition');
+    const ordinal = position.value === '' ? null : Number(position.value);
+    const valid = position.validity.valid && (ordinal === null || Number.isInteger(ordinal));
+    const prefix = el('scanFilterPrefix').value, type = el('scanFilterType').value;
+    el('scanFilter69').setAttribute('aria-pressed',String(type === 'all' && prefix === '69' && ordinal === null && valid));
+    let total = 0, shown = 0;
+    for (const box of el('scanResults').children) {
+      const result = box.scanResult;
+      if (result.uiError) { box.hidden = false; continue; }
+      total++;
+      const matchesType = type === 'all' || (type === 'digits' ? /^[0-9]+$/.test(result.text) : /^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9]+$/.test(result.text));
+      box.hidden = !(valid && (ordinal === null || result.ordinal === ordinal) && result.text.startsWith(prefix) && matchesType);
+      if (!box.hidden) shown++;
+    }
+    el('scanFilterStatus').textContent = !valid ? '请输入 1–255 的整数，或留空显示全部' : total && !shown ? `无匹配结果（共 ${total} 个码），请调整筛选` : `显示 ${shown} / ${total} 个码`;
+  }
+  for (const id of ['scanFilterPosition','scanFilterPrefix','scanFilterType']) {
+    el(id).addEventListener('input',refreshFilters);
+    el(id).addEventListener('change',refreshFilters);
+  }
+  el('scanFilterReset').onclick = () => {
+    el('scanFilterPosition').value = ''; el('scanFilterPrefix').value = ''; el('scanFilterType').value = 'all'; refreshFilters();
+  };
+  el('scanFilter69').onclick = () => {
+    el('scanFilterPosition').value = ''; el('scanFilterPrefix').value = '69'; el('scanFilterType').value = 'all'; refreshFilters();
+  };
+  refreshFilters();
   function filename(text) {
     let base = Array.from(text.replace(/[<>:"/\\|?*\u0000-\u001f\u007f]/g,'_')).slice(0,100).join('').replace(/[. ]+$/g,'') || '未命名';
     if (/^(con|prn|aux|nul|com[0-9]|lpt[0-9])(?:\.|$)/i.test(base)) base = '_' + base;
@@ -16,18 +44,21 @@
     el('scanner').hidden = !scan;
     el('tableMode').setAttribute('aria-pressed',String(!scan));
     el('scanMode').setAttribute('aria-pressed',String(scan));
+    window.dispatchEvent(new CustomEvent('codeview-scan-mode',{detail:scan}));
   }
   el('tableMode').onclick = () => mode(false);
   el('scanMode').onclick = () => mode(true);
   function setBusy(value) {
     busy=value; el('scanPick').disabled=value; el('scanCancel').hidden=!value;
     el('scanner').setAttribute('aria-busy',String(value));
+    window.dispatchEvent(new CustomEvent('codeview-scan-busy',{detail:value}));
   }
   function stop() { generation++; if(cancelPending)cancelPending(new Error('已取消'));cancelPending=null;if(worker) worker.terminate(); worker=null; setBusy(false); }
   el('scanCancel').onclick=()=>{stop();el('scanStatus').textContent='已取消，已生成的图片仍可保存';};
-  el('scanClear').onclick=()=>{stop();urls.forEach(url=>URL.revokeObjectURL(url));urls.clear();names.clear();el('scanResults').replaceChildren();el('scanStatus').textContent='等待图片';};
+  el('scanClear').onclick=()=>{stop();window.dispatchEvent(new Event('codeview-scan-clear'));urls.forEach(url=>URL.revokeObjectURL(url));urls.clear();names.clear();el('scanResults').replaceChildren();el('scanStatus').textContent='等待图片';refreshFilters();};
   function card(result, source) {
     const box=document.createElement('article');box.className='scan-card';
+    box.scanResult=result;
     const text=document.createElement('pre');text.textContent=result.text;
     if(result.image) {
       const url=URL.createObjectURL(result.image);urls.add(url);
@@ -45,8 +76,9 @@
       box.refreshLanguage=refresh;box.append(text,note);
     }
     el('scanResults').append(box);
+    refreshFilters();
   }
-  window.addEventListener('codeview-language',()=>{for(const box of el('scanResults').children)box.refreshLanguage?.();});
+  window.addEventListener('codeview-language',()=>{for(const box of el('scanResults').children)box.refreshLanguage?.();refreshFilters();});
   async function run(files) {
     if(busy || !files.length)return;
     mode(true);setBusy(true);const token=++generation;
@@ -59,7 +91,7 @@
       for(let i=0;i<files.length;i++) {
         if(token!==generation)return;
         const file=files[i];el('scanStatus').textContent=`识别 ${i+1}/${files.length}：${file.name || '粘贴图片'}`;
-        let bitmap;
+        let bitmap, ordinal=0;
         try {
           if(file.size>50*1024*1024)throw new Error('图片超过 50 MB');
           bitmap=await createImageBitmap(file);
@@ -73,7 +105,7 @@
             worker.onerror=()=>reject(new Error('识别引擎无法运行，请使用新版 Chrome 或 Edge'));
             worker.onmessage=({data})=>{
               if(token!==generation)return;
-              if(data.kind==='result'){count++;if(data.image)saved++;card(data,file.name || '粘贴图片');}
+              if(data.kind==='result'){count++;if(data.image)saved++;card({...data,ordinal:++ordinal},file.name || '粘贴图片');}
               else if(data.kind==='done'){if(!data.count)card({text:scanMessages.empty,uiError:true,format:'',error:scanMessages.retry},file.name || '粘贴图片');resolve();}
               else if(data.kind==='error')reject(new Error(data.error));
             };
@@ -93,4 +125,5 @@
   el('scanner').ondragleave=()=>el('scanner').classList.remove('dragging');
   el('scanner').ondrop=e=>{e.preventDefault();el('scanner').classList.remove('dragging');run(Array.from(e.dataTransfer.files));};
   window.addEventListener('paste',e=>{if(el('scanner').hidden)return;const files=Array.from(e.clipboardData.items).filter(i=>i.type.startsWith('image/')).map(i=>i.getAsFile()).filter(Boolean);if(files.length){e.preventDefault();run(files);}});
+  window.CodeViewScanner={run,isBusy:()=>busy};
 })();

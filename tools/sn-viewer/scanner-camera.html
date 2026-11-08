@@ -1,0 +1,7 @@
+  <button id="scanCameraFallback" type="button" hidden><svg class="scan-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V3m-5 5 5-5 5 5M4 15v6h16v-6"/></svg><span>选择照片／系统相机</span></button><input id="scanCameraFile" type="file" accept="image/*" capture="environment" hidden>
+  <p id="scanCameraStatus" class="small muted" role="status" aria-live="polite" hidden></p>
+  <section id="scanCameraPanel" class="camera-panel" aria-label="相机预览" hidden>
+    <div class="camera-heading row wrap"><label id="scanCameraDeviceLabel" hidden><span>相机</span><select id="scanCameraDevice" aria-label="选择相机"></select></label><button id="scanCameraClose" type="button" title="关闭相机" aria-label="关闭相机">×</button></div>
+    <video id="scanCameraVideo" autoplay playsinline muted aria-label="相机预览"></video>
+    <div class="camera-actions"><button id="scanCameraCapture" class="primary" type="button" disabled><svg class="scan-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/></svg><span>拍照识别</span></button></div>
+  </section>

@@ -17,19 +17,27 @@ Previously named SNView. The former online URLs redirect to CodeView.
 - Preserve original SN text, leading zeros, order, duplicates and surrounding spaces.
 - Review fields from the same row. Choose side columns with arrows or header menus, enable separate barcodes, and receive field-change notifications.
 - Scan multiple images, including multiple codes per image, and regenerate each detected code as a separate PNG in its original format.
+- Open a phone or computer camera, preview the image, and capture a frame to scan. Choose between available cameras; phones prefer the rear camera.
+- Show letters plus digits (SN) by default, or choose all contents or digits only. Combine the content type with a text prefix and the code's original image position.
 - Switch between Simplified Chinese and English without losing current data or progress. The initial language follows the browser; manual choices are remembered when browser storage is available.
 - Follow the system light or dark theme while keeping code images white.
 - Process data locally without changing source files. No network connection is required after downloading the HTML.
 
 ## Getting started
 
-1. Open the online tool, or download the [v1.4.6 single HTML file](./交付/SN连续出码/SN_连续出码工具_v1.4.6.html) and open it in a modern browser.
+1. Open the online tool, or download the [v1.5.1 single HTML file](./交付/SN连续出码/SN_连续出码工具_v1.5.1.html) and open it in a modern browser.
 2. Choose your interface language from the menu at the top right.
 3. Import a file or expand **Paste table** and paste your table.
 4. Check the sheet, SN column, header row, first data row and preview; select **Start**.
 5. Step through records and compare the side fields. Use the download button to save the current SN as a PNG.
 
 To scan existing codes, select **Scan images** and choose multiple images, or paste or drop images onto that panel. Check the decoded contents and use each result's download button to save it. Duplicate labels are retained separately. Filenames use the decoded text with invalid characters replaced, long names shortened and duplicates numbered; encoded contents stay unchanged.
+
+Select **Open camera**, allow camera access, then select **Capture and scan**. Capturing closes the camera; you can also close it at any time. Direct camera access needs a secure page and browser permission. Use an HTTPS page on phones. If direct access is unavailable, use **Choose photo / system camera** to import a captured photo.
+
+**Display filters** defaults to **SN · Letters + digits**: contents must include both English letters and digits, with no other characters. **Starts with 69** fills the prefix with `69`, selects **All** content types and clears the position, showing every code with that prefix. **Show all** clears all filters.
+
+Set filters before or after scanning; the matching count updates immediately. Enter `1` in **Position in image** to restrict results to the first code. Positions follow the original image from top to bottom, then left to right within a row. Combined filters keep those original positions, and every condition must match.
 
 ## Development and testing
 
@@ -51,6 +59,7 @@ node tools/sn-viewer/verify-neighbors.cjs
 node tools/sn-viewer/verify-import-browser.cjs
 node tools/sn-viewer/verify-i18n.cjs
 node tools/sn-viewer/verify-scanner.cjs
+node tools/sn-viewer/verify-scanner-filters-camera.cjs
 ```
 
 ## Usage limits

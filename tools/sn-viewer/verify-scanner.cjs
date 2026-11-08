@@ -19,6 +19,7 @@ const {pathToFileURL}=require('url');
     return mix.toDataURL('image/png').split(',')[1];
   });
   await page.getByRole('button',{name:'图片识码',exact:true}).click();
+  await page.locator('#scanFilterReset').click();
   await page.locator('#scanFiles').setInputFiles({name:'mixed.png',mimeType:'image/png',buffer:Buffer.from(fixture,'base64')});
   await page.waitForFunction(()=>document.getElementById('scanCancel').hidden,{},{timeout:60000});
   console.log(await page.locator('#scanStatus').innerText());

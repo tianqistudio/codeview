@@ -46,3 +46,10 @@
 !/tools/sn-viewer/import.css
 !/tools/sn-viewer/test-import-core.cjs
 !/tools/sn-viewer/test-build-output.py
+
+# Camera capture and scanner result filters
+!/tools/sn-viewer/scanner-camera.js
+!/tools/sn-viewer/scanner-camera.html
+!/tools/sn-viewer/scanner-camera.css
+!/tools/sn-viewer/verify-scanner-filters-camera.cjs
+!/交付/SN连续出码/SN_连续出码工具_v1.5.1.html

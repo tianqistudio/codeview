@@ -7,7 +7,7 @@ function defaultHtmlPath() {
   const receipt = path.join(root, 'release.json');
   return path.resolve(root, fs.existsSync(receipt)
     ? JSON.parse(fs.readFileSync(receipt, 'utf8').replace(/^\uFEFF/, '')).html
-    : '交付/SN连续出码/SN_连续出码工具_v1.4.1.html');
+    : '交付/SN连续出码/SN_连续出码工具_v1.5.1.html');
 }
 
 function readTestHtml(explicit = process.argv[2] || process.env.CODEVIEW_TEST_HTML) {

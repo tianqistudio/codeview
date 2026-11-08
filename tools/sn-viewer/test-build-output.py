@@ -13,6 +13,7 @@ ASSETS = (
     'refine.py', 'localize.py', 'theme.css', 'ui.js', 'sn-icon.svg',
     'neighbor.js', 'sn-header.js', 'import-core.js', 'import-ui.js', 'import.css', 'row-filters.js',
     'scanner.css', 'scanner.html', 'scanner.js', 'scanner-worker.js',
+    'scanner-camera.css', 'scanner-camera.html', 'scanner-camera.js',
     'i18n.js', 'locales.json', 'vendor/zxing.js', 'vendor/zxing_full.wasm',
     'vendor/ZXING-LICENSE.txt', 'vendor/ZXING-CPP-LICENSE.txt', 'vendor/ZINT-LICENSE.txt',
 )

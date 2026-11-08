@@ -75,6 +75,7 @@ function syntheticWorkbook() {
   // Localized scanner controls and result names survive a language change.
   const image = await page.locator('#canvas').evaluate(c=>c.toDataURL().split(',')[1]);
   await page.locator('#scanMode').click();
+  await page.locator('#scanFilterReset').click();
   assert(await page.locator('#language').isVisible());
   await page.locator('#scanFiles').setInputFiles({name:'原始文件.png',mimeType:'image/png',buffer:Buffer.from(image,'base64')});
   await page.waitForFunction(()=>document.getElementById('scanCancel').hidden);
