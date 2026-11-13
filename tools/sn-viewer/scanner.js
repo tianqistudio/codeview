@@ -3,22 +3,32 @@
   const el = id => document.getElementById(id);
   let worker, busy = false, generation = 0, cancelPending;
   const urls = new Set(), names = new Set();
+  const MAX_CARDS = 1000, MAX_RESULT_BYTES = 64 * 1024 * 1024, MAX_SOURCES = 200;
+  let resultBytes = 0, sourceCount = 0, totalCodes = 0, shownCodes = 0, filter;
+  function budgetError() { return Object.assign(new Error('SCAN_BUDGET'), {budget:true}); }
+  function applyFilter(box) {
+    const result = box.scanResult;
+    if (result.uiError) { box.hidden = false; return; }
+    totalCodes++;
+    const {valid,ordinal,prefix,type} = filter;
+    const matchesType = type === 'all' || (type === 'digits' ? /^[0-9]+$/.test(result.text) : /^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9]+$/.test(result.text));
+    box.hidden = !(valid && (ordinal === null || result.ordinal === ordinal) && result.text.startsWith(prefix) && matchesType);
+    if (!box.hidden) shownCodes++;
+  }
+  function filterStatus() {
+    const {valid} = filter, total = totalCodes, shown = shownCodes;
+    el('scanFilterStatus').textContent = !valid ? '请输入 1–255 的整数，或留空显示全部' : total && !shown ? `无匹配结果（共 ${total} 个码），请调整筛选` : `显示 ${shown} / ${total} 个码`;
+  }
   function refreshFilters() {
     const position = el('scanFilterPosition');
     const ordinal = position.value === '' ? null : Number(position.value);
     const valid = position.validity.valid && (ordinal === null || Number.isInteger(ordinal));
     const prefix = el('scanFilterPrefix').value, type = el('scanFilterType').value;
     el('scanFilter69').setAttribute('aria-pressed',String(type === 'all' && prefix === '69' && ordinal === null && valid));
-    let total = 0, shown = 0;
-    for (const box of el('scanResults').children) {
-      const result = box.scanResult;
-      if (result.uiError) { box.hidden = false; continue; }
-      total++;
-      const matchesType = type === 'all' || (type === 'digits' ? /^[0-9]+$/.test(result.text) : /^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9]+$/.test(result.text));
-      box.hidden = !(valid && (ordinal === null || result.ordinal === ordinal) && result.text.startsWith(prefix) && matchesType);
-      if (!box.hidden) shown++;
-    }
-    el('scanFilterStatus').textContent = !valid ? '请输入 1–255 的整数，或留空显示全部' : total && !shown ? `无匹配结果（共 ${total} 个码），请调整筛选` : `显示 ${shown} / ${total} 个码`;
+    filter = {valid,ordinal,prefix,type};
+    totalCodes = shownCodes = 0;
+    for (const box of el('scanResults').children) applyFilter(box);
+    filterStatus();
   }
   for (const id of ['scanFilterPosition','scanFilterPrefix','scanFilterType']) {
     el(id).addEventListener('input',refreshFilters);
@@ -55,8 +65,10 @@
   }
   function stop() { generation++; if(cancelPending)cancelPending(new Error('已取消'));cancelPending=null;if(worker) worker.terminate(); worker=null; setBusy(false); }
   el('scanCancel').onclick=()=>{stop();el('scanStatus').textContent='已取消，已生成的图片仍可保存';};
-  el('scanClear').onclick=()=>{stop();window.dispatchEvent(new Event('codeview-scan-clear'));urls.forEach(url=>URL.revokeObjectURL(url));urls.clear();names.clear();el('scanResults').replaceChildren();el('scanStatus').textContent='等待图片';refreshFilters();};
+  el('scanClear').onclick=()=>{stop();window.dispatchEvent(new Event('codeview-scan-clear'));urls.forEach(url=>URL.revokeObjectURL(url));urls.clear();names.clear();resultBytes=sourceCount=0;el('scanResults').replaceChildren();el('scanStatus').textContent='等待图片';refreshFilters();};
   function card(result, source) {
+    const bytes = result.image ? result.image.size : 0;
+    if (el('scanResults').childElementCount >= MAX_CARDS || resultBytes + bytes > MAX_RESULT_BYTES) throw budgetError();
     const box=document.createElement('article');box.className='scan-card';
     box.scanResult=result;
     const text=document.createElement('pre');text.textContent=result.text;
@@ -76,13 +88,14 @@
       box.refreshLanguage=refresh;box.append(text,note);
     }
     el('scanResults').append(box);
-    refreshFilters();
+    resultBytes += bytes;
+    applyFilter(box);filterStatus();
   }
   window.addEventListener('codeview-language',()=>{for(const box of el('scanResults').children)box.refreshLanguage?.();refreshFilters();});
   async function run(files) {
     if(busy || !files.length)return;
     mode(true);setBusy(true);const token=++generation;
-    let count=0, saved=0, failed=0;
+    let count=0, saved=0, failed=0, fileIndex=0, ordinal=0;
     try {
       const source=atob(el('scannerWorker').textContent.trim());
       const workerUrl=URL.createObjectURL(new Blob([Uint8Array.from(source,c=>c.charCodeAt(0))],{type:'text/javascript'}));
@@ -90,8 +103,11 @@
       let wasm=Uint8Array.from(atob(el('scannerWasm').textContent.trim()),c=>c.charCodeAt(0));
       for(let i=0;i<files.length;i++) {
         if(token!==generation)return;
+        fileIndex=i;ordinal=0;
+        if(sourceCount>=MAX_SOURCES || el('scanResults').childElementCount>=MAX_CARDS || resultBytes>=MAX_RESULT_BYTES)throw budgetError();
+        sourceCount++;
         const file=files[i];el('scanStatus').textContent=`识别 ${i+1}/${files.length}：${file.name || '粘贴图片'}`;
-        let bitmap, ordinal=0;
+        let bitmap;
         try {
           if(file.size>50*1024*1024)throw new Error('图片超过 50 MB');
           bitmap=await createImageBitmap(file);
@@ -105,18 +121,25 @@
             worker.onerror=()=>reject(new Error('识别引擎无法运行，请使用新版 Chrome 或 Edge'));
             worker.onmessage=({data})=>{
               if(token!==generation)return;
-              if(data.kind==='result'){count++;if(data.image)saved++;card({...data,ordinal:++ordinal},file.name || '粘贴图片');}
-              else if(data.kind==='done'){if(!data.count)card({text:scanMessages.empty,uiError:true,format:'',error:scanMessages.retry},file.name || '粘贴图片');resolve();}
+              if(data.kind==='result'){
+                try {card({...data,ordinal:ordinal+1},file.name || '粘贴图片');ordinal++;count++;if(data.image)saved++;}
+                catch(error){if(worker)worker.terminate();worker=null;reject(error);}
+              }
+              else if(data.kind==='done'){try{if(!data.count)card({text:scanMessages.empty,uiError:true,format:'',error:scanMessages.retry},file.name || '粘贴图片');resolve();}catch(error){reject(error);}}
               else if(data.kind==='error')reject(new Error(data.error));
             };
             const transfers=[image.data.buffer];if(wasm)transfers.push(wasm.buffer);
             worker.postMessage({image,wasm},transfers);wasm=null;
           });
-        } catch(e) {if(token!==generation)return;failed++;card({text:scanMessages.failed,uiError:true,format:'',error:e.message},file.name || '粘贴图片');}
+        } catch(e) {if(token!==generation)return;if(e.budget)throw e;failed++;card({text:scanMessages.failed,uiError:true,format:'',error:e.message},file.name || '粘贴图片');}
         finally {if(token===generation)cancelPending=null;if(bitmap)bitmap.close();}
       }
       el('scanStatus').textContent=`识别到 ${count} 个码，生成 ${saved} 张图片${failed?`，${failed} 张源图处理失败`:''}。请核对是否有遗漏。`;
-    } catch(e) {el('scanStatus').textContent=`无法启动识别：${e.message}`;}
+    } catch(e) {
+      if(token!==generation)return;
+      if(e.budget)el('scanStatus').textContent=`达到累计上限（1,000 条结果 / 64 MiB 码图 / 200 张源图），已停止。本批第 ${fileIndex+1}/${files.length} 张「${files[fileIndex].name || '粘贴图片'}」仅保留 ${ordinal} 个码，其后图片尚未处理。请先保存已有结果，再清空；重新导入该图及其后图片，当前图可裁剪未处理区域以避免重复。`;
+      else el('scanStatus').textContent=`无法启动识别：${e.message}`;
+    }
     finally {if(token===generation){if(worker)worker.terminate();worker=null;setBusy(false);}}
   }
   el('scanPick').onclick=()=>el('scanFiles').click();

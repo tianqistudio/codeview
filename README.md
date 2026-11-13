@@ -1,4 +1,4 @@
-# 码映 · CodeView
+# 码映 CodeView
 
 **简体中文** | [English](./README.en.md)
 
@@ -28,7 +28,7 @@
 
 ## 安装与使用
 
-1. 在线打开工具，或下载仓库中的 [v1.5.1 单文件 HTML](./交付/SN连续出码/SN_连续出码工具_v1.5.1.html) 后用浏览器打开。
+1. 在线打开工具，或下载 [v1.5.3 单文件 HTML](https://github.com/tianqistudio/codeview/releases/download/v1.5.3/CodeView-1.5.3.html) 后用浏览器打开。
 2. 导入 Excel、CSV、TXT、TSV，或粘贴表格内容。
 3. 核对工作表、SN 列与数据起始行，点击「开始」。
 4. 逐条切换条码，结合左右字段核对；需要时下载当前 SN 的 PNG 图片。
@@ -86,3 +86,6 @@ Excel 中以数值保存的长编号可能已丢失精度，工具无法恢复�
 图片识别与重建使用 [ZXing WASM](https://github.com/Sec-ant/zxing-wasm) 3.1.4，依赖内嵌，可离线运行。
 
 由 [tianqistudio](https://tianqistudio.com/home) 制作。
+
+
+图片识码累计保留最多 1,000 条结果（含错误提示）、64 MiB 码图与 200 张源图。达到任一上限后会显示停止位置；已有结果可继续筛选和保存。先保存再清空，可重新导入当前图片及后续图片；当前图未完成时可裁剪未处理区域，避免重复。

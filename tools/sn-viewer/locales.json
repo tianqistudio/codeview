@@ -643,6 +643,7 @@
     "name+'发生变化（'+old.value+' → '+now.value+'）'": "`${name} changed (${old.value} → ${now.value})`",
     "(locked?'解锁':'锁定')+label+'列条形码'": "`${locked?'Stop keeping':'Keep'} ${side==='left'?'left':'right'} column barcode enabled`",
     "'工作簿缺少 '+name+'。'": "`Workbook entry missing: ${name}.`",
-    "'共享字符串引用无效：'+addr": "`Invalid shared string reference: ${addr}`"
+    "'共享字符串引用无效：'+addr": "`Invalid shared string reference: ${addr}`",
+    "`达到累计上限（1,000 条结果 / 64 MiB 码图 / 200 张源图），已停止。本批第 ${fileIndex+1}/${files.length} 张「${files[fileIndex].name || '粘贴图片'}」仅保留 ${ordinal} 个码，其后图片尚未处理。请先保存已有结果，再清空；重新导入该图及其后图片，当前图可裁剪未处理区域以避免重复。`": "`Session limit reached (1,000 results / 64 MiB images / 200 source images). Stopped at image ${fileIndex+1}/${files.length}, “${files[fileIndex].name || 'Pasted image'}”, with ${ordinal} codes retained from this image. Later images have not been processed. Save existing results, clear, then reimport this and later images; crop the unprocessed area of the current image to avoid duplicates.`"
   }
 }

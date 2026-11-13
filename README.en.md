@@ -25,7 +25,7 @@ Previously named SNView. The former online URLs redirect to CodeView.
 
 ## Getting started
 
-1. Open the online tool, or download the [v1.5.1 single HTML file](./交付/SN连续出码/SN_连续出码工具_v1.5.1.html) and open it in a modern browser.
+1. Open the online tool, or download the [v1.5.3 single HTML file](https://github.com/tianqistudio/codeview/releases/download/v1.5.3/CodeView-1.5.3.html) and open it in a modern browser.
 2. Choose your interface language from the menu at the top right.
 3. Import a file or expand **Paste table** and paste your table.
 4. Check the sheet, SN column, header row, first data row and preview; select **Start**.
@@ -79,3 +79,6 @@ Changing interface language does not translate serial numbers, source headers, r
 Embedded third-party copyright and license notices are retained in the HTML. Image decoding and regeneration use the bundled [ZXing WASM](https://github.com/Sec-ant/zxing-wasm) 3.1.4 engine.
 
 Made by [tianqistudio](https://tianqistudio.com/home).
+
+
+Image scanning retains up to 1,000 result cards (including errors), 64 MiB of generated images and 200 source images per session. A limit notice identifies the stopping point; existing results remain available for filtering and saving. Save, clear, then reimport the current and remaining images; crop the unfinished area of the current image to avoid duplicates.

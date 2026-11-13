@@ -154,6 +154,7 @@ html = html.replace('const loc=`${colName(choice.col)}', 'const loc=()=>`${colNa
 html = html.replace('const detail=choice.header?', 'const detail=()=>choice.header?')
 html = html.replace('${loc}', '${loc()}').replace('${detail}', '${detail()}')
 html = localize(html)
+html = html.replace('</body>', '<footer style="text-align:center;padding:16px;font-size:12px"><a href="https://tianqistudio.com/home" target="_blank" rel="noopener noreferrer" style="color:inherit">由 tianqistudio 制作。</a></footer></body>')
 output.parent.mkdir(parents=True, exist_ok=True)
 output.write_text(html, encoding='utf-8')
 if not (output.parent / 'SN-icon.svg').exists():
